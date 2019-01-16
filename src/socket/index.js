@@ -1,7 +1,12 @@
 import io from "socket.io-client";
 
 export default () => {
-	const socket = io("http://localhost:3000");
+	const host =
+		process.env.NODE_ENV === "development"
+			? "http://localhost:3000"
+			: window.location.host;
+
+	const socket = io(host);
 
 	const roomCreated = cb => {
 		socket.on("roomCreated", cb);
