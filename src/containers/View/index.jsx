@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 
 import ViewStyled from "./ViewStyled";
-import { Transition, animated } from "react-spring";
+import { animated } from "react-spring";
 
 const View = props => (
 	<animated.div>
