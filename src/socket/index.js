@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 export default () => {
-	const socket = io.connect("http://" + window.location.hostname + ":8080");
+	const socket = io("http://localhost:3000");
 
 	const roomCreated = cb => {
 		socket.on("roomCreated", cb);
@@ -40,7 +40,6 @@ export default () => {
 	};
 
 	const selectHand = (value, roomId) => {
-		console.log("He");
 		socket.emit("selectHand", value, roomId);
 	};
 
