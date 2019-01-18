@@ -26,8 +26,6 @@ class PreGameView extends React.Component {
 	}
 
 	componentDidMount() {
-		const userCreatedRoom = this.props.location.detail || false;
-
 		this.state.client.createRoom();
 
 		this.state.client.roomCreated(data => {
@@ -41,9 +39,7 @@ class PreGameView extends React.Component {
 	handleBeginGame = () => {
 		this.props.history.push({
 			pathname: `/${this.state.roomId}`,
-			detail: {
-				created: true
-			}
+			gameMode: "bestofthree"
 		});
 	};
 

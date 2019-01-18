@@ -16,8 +16,8 @@ export default () => {
 		socket.emit("createRoom");
 	};
 
-	const joinRoom = roomId => {
-		socket.emit("joinRoom", roomId);
+	const joinRoom = (roomId, gameMode) => {
+		socket.emit("joinRoom", roomId, gameMode);
 	};
 
 	const roomJoined = cb => {

@@ -2,9 +2,9 @@ const checkWinner = require("./functions/checkWinner");
 
 const gameHandler = client => {
 	const selectHand = (hand, roomId) => {
-		console.log(hand);
 		client.player.hand = hand;
 		const players = client.getPlayersInRoom(roomId);
+
 		client.emitToAll("handSelected", roomId, players);
 		let shouldPlay = true;
 

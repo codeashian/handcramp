@@ -1,5 +1,5 @@
 const roomHandler = (socket, io) => {
-	const createRoom = () => {
+	const createRoom = options => {
 		const roomId = (Math.random() * 100000) | 0;
 
 		socket.emit("roomCreated", {
@@ -10,7 +10,7 @@ const roomHandler = (socket, io) => {
 		});
 	};
 
-	const joinRoom = roomId => {
+	const joinRoom = (roomId, gameMode = false) => {
 		const socketRoom = io.sockets.adapter.rooms[roomId];
 
 		if (
@@ -21,16 +21,24 @@ const roomHandler = (socket, io) => {
 			return;
 		}
 
-		socket.join(roomId);
 		socket.player = {
 			hand: "",
 			score: 0,
 			id: socket.id
 		};
 
+		socket.join(roomId);
+		const room = io.sockets.adapter.rooms[roomId];
+
+		if (gameMode) {
+			room.gameMode = gameMode;
+		}
+
 		socket.emitToOthers("playerJoinedRoom", roomId);
+
 		socket.emitToSelf("roomJoined", {
-			id: socket.id
+			id: socket.id,
+			gameMode: socket.getRoomMode(roomId)
 		});
 	};
 

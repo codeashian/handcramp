@@ -50,12 +50,15 @@ class GameView extends React.Component {
 
 	componentDidMount() {
 		const roomId = this.props.match.params.room;
+		const gameMode = this.props.location.gameMode;
 
 		this.setState({
-			roomId
+			roomId,
+			gameMode
 		});
 
-		this.state.client.joinRoom(roomId);
+		this.state.client.joinRoom(roomId, gameMode);
+
 		this.state.client.roomIsFull(this.roomIsFull.bind(this));
 		this.state.client.roomJoined(this.joined);
 		this.state.client.handSelected(this.onHandSelected.bind(this));
@@ -73,9 +76,11 @@ class GameView extends React.Component {
 		});
 	}
 
-	joined = data => {
+	joined = ({ id, gameMode }) => {
+		console.log(gameMode);
 		this.setState({
-			id: data.id
+			id,
+			gameMode
 		});
 	};
 
@@ -99,6 +104,7 @@ class GameView extends React.Component {
 	}
 
 	onHandSelected(players) {
+		console.log(players);
 		const sortedPlayers = this.sortPlayers(players);
 		this.setState({
 			players: sortedPlayers
@@ -150,7 +156,6 @@ class GameView extends React.Component {
 		this.setState({
 			roundEnd: true
 		});
-		console.log("round end");
 		this.state.client.reset(this.state.roomId);
 	};
 
