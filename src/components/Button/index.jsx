@@ -9,7 +9,7 @@ const Button = props => {
 		document.querySelector("main").classList.add("animate-out");
 		setTimeout(() => {
 			props.onClick();
-		}, 1000);
+		}, 500);
 	};
 
 	const clickEvent = props.routeChange ? handleClick : props.onClick;

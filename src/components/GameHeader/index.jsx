@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import H4 from "components/H4";
-import GameHeaderStyled from "./GameHeaderStyled";
+import GameHeaderStyled, { Score } from "./GameHeaderStyled";
+import { animation, Transition } from "react-spring";
 
 const GameHeader = props => (
 	<GameHeaderStyled {...props}>
@@ -14,7 +15,7 @@ const GameHeader = props => (
 		</div>
 		<div>
 			<H4>Opponent</H4>
-			<p> {props.opponentScore} </p>
+			<Score score={props.test}> {props.test} </Score>
 		</div>
 	</GameHeaderStyled>
 );

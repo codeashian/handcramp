@@ -7,14 +7,9 @@ import H3 from "components/H3";
 
 const Logo = props => (
 	<LogoStyled {...props}>
-		<Circle className="circle" bg={colors.pink}>
-			<div>
-				<H3>FIST FIGHT</H3>
-				<img className="paper" src="./assets/icons/paper.svg" />
-				<img className="rock" src="./assets/icons/rock.svg" />
-				<img className="scissors" src="./assets/icons/scissors.svg" />
-			</div>
-		</Circle>
+		<div>
+			<img src="./assets/icons/Logo-Outlines.svg" />
+		</div>
 	</LogoStyled>
 );
 

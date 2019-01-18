@@ -7,11 +7,15 @@ import Lottie from "react-lottie";
 import scissors from "../../assets/animations/scissors.json";
 import paper from "../../assets/animations/paper.json";
 import rock from "../../assets/animations/rock.json";
+import win from "../../assets/animations/win.json";
+import lose from "../../assets/animations/lose.json";
 
 const animations = {
 	scissors,
 	paper,
-	rock
+	rock,
+	win,
+	lose
 };
 
 const Hand = props => {
@@ -34,19 +38,23 @@ const Hand = props => {
 		: [];
 
 	return (
-		<Lottie
-			options={defaultOptions}
-			isStopped={!props.play}
-			isPaused={!props.play}
-			eventListeners={callback}
-		/>
+		<div className={props.className}>
+			<Lottie
+				className={props.className}
+				options={defaultOptions}
+				isStopped={!props.play}
+				isPaused={!props.play}
+				eventListeners={callback}
+			/>
+		</div>
 	);
 };
 
 Hand.propTypes = {
 	hand: PropTypes.string,
 	play: PropTypes.bool,
-	onEnd: PropTypes.func
+	onEnd: PropTypes.func,
+	className: PropTypes.className
 };
 
 Hand.defaultProps = {

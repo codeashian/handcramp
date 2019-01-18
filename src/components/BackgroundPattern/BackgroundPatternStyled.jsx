@@ -24,7 +24,7 @@ const BackgroundPatternStyled = styled.div`
 			transform: translateY(-50%) translateX(-50%);
 
 			.icon {
-				transition: 0.1s ease;
+				/* transition: 0.1s ease; */
 			}
 		}
 	}

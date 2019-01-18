@@ -115,7 +115,7 @@ const ButtonStyled = styled.button`
 	}
 
 	${props =>
-		!props.selected && !props.disabled
+		!props.selected
 			? `
 		&:hover {
 			.Button-Front {

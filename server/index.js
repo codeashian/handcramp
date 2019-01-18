@@ -5,6 +5,10 @@ const path = require("path");
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, "../dist/index.html");
 
+const clientHandler = require("./clientHandler");
+const gameHandler = require("./gameHandler");
+const roomHandler = require("./roomHandler");
+
 const server = express()
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
@@ -14,18 +18,19 @@ const server = express()
 
 const io = socketIO(server);
 
-var Game = require("./Room");
-
 io.on("connection", function(socket) {
-	console.log(socket);
-	socket.on("createRoom", () => {
-		const roomId = (Math.random() * 100000) | 0;
-		const game = new Game(socket, io);
-		game.create(roomId);
-	});
+	const client = clientHandler(socket, io);
 
-	socket.on("joinRoom", roomId => {
-		const game = new Game(socket, io);
-		game.join(roomId);
-	});
+	const { createRoom, joinRoom, disconnecting } = roomHandler(client, io);
+	const { reset, selectHand } = gameHandler(client, io);
+
+	client.on("createRoom", createRoom);
+
+	client.on("joinRoom", joinRoom);
+
+	client.on("selectHand", selectHand);
+
+	client.on("reset", reset);
+
+	client.on("disconnecting", disconnecting);
 });

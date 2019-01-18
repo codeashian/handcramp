@@ -14,9 +14,20 @@ import Button from "components/Button/";
 import ButtonGroup from "components/ButtonGroup/";
 import GameHeader from "components/GameHeader/";
 import PlayField from "components/PlayField";
+import TitleWave from "../../components/TitleWave/index";
 
 const initialState = {
-	players: { user: {}, opponent: {} },
+	players: {
+		user: {
+			hand: "",
+			score: 2
+		},
+		opponent: {
+			hand: "",
+			score: 0
+		}
+	},
+	test: 0,
 	result: "",
 	playing: false,
 	roundEnd: false,
@@ -57,7 +68,6 @@ class GameView extends React.Component {
 	}
 
 	componentWillUnmount() {
-		console.log("unmounted");
 		this.state.client.leaveRoom(this.state.roomId);
 		this.setState({
 			...initialState
@@ -76,7 +86,6 @@ class GameView extends React.Component {
 	};
 
 	handlePlayerDisconnect = () => {
-		console.log("hej");
 		this.setState({
 			...initialState
 		});
@@ -87,13 +96,11 @@ class GameView extends React.Component {
 	};
 
 	onHandButtonClick(e, value) {
-		console.log(value);
 		this.state.client.selectHand(value, this.state.roomId);
 	}
 
 	onHandSelected(players) {
 		const sortedPlayers = this.sortPlayers(players);
-		console.log(sortedPlayers);
 		this.setState({
 			players: sortedPlayers
 		});
@@ -131,24 +138,27 @@ class GameView extends React.Component {
 			result = "lose";
 		}
 
-		this.setState({
-			playing: true,
-			players: sortedPlayers,
-			result: result
-		});
+		setTimeout(() => {
+			this.setState({
+				playing: true,
+				players: sortedPlayers,
+				result: result
+			});
+		}, 5000);
 	};
 
 	gameEnd = () => {
 		this.setState({
 			roundEnd: true
 		});
+		this.state.client.reset(this.state.roomId);
 	};
 
 	restart = () => {
 		this.setState({
 			...initialState
 		});
-		this.state.client.replay();
+		// this.state.client.replay(this.state.roomId);
 		this.toggleScreen("PickHand");
 	};
 
@@ -167,9 +177,14 @@ class GameView extends React.Component {
 					key={value}
 					smallFont
 					width="33.33%"
+					routeChange={false}
 					onClick={e => this.onHandButtonClick(e, value)}
-					disabled={disabled}
-					selected={disabled ? this.state.players.user.hand === value : false}
+					disabled={this.state.players.user.hand ? true : false}
+					selected={
+						this.state.players.user.hand
+							? this.state.players.user.hand === value
+							: false
+					}
 					index={index}
 				>
 					<img src={`assets/icons/${value}.svg`} />
@@ -178,63 +193,60 @@ class GameView extends React.Component {
 		});
 	}
 
+	updateScore() {
+		this.setState({
+			test: this.state.test + 1
+		});
+	}
+
 	render() {
 		const { user, opponent } = this.state.players;
+
 		return (
 			<View title="Game">
 				<GameHeader
+					className="game-header"
 					rounds={this.state.rounds}
 					opponentScore={opponent.score || 0}
 					userScore={user.score || 0}
+					test={this.state.test}
 				/>
-				{this.state.screens.isDisplayingPickHand && (
-					<Container header gridTemplate="1fr 1fr / 1fr">
-						<Row>
-							<Col justifyContent="flex-end">
-								<H2> Choose your hand </H2>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
+				<Container
+					className="game-view"
+					header={true}
+					gridTemplate="4fr 1fr / 1fr"
+				>
+					<Row>
+						<Col justifyContent="center">
+							<div className="game-loader">
+								{user.hand && (
+									<TitleWave show={opponent.hand} text="waiting for opponent" />
+								)}
+							</div>
+							<PlayField
+								handleGameEnd={this.gameEnd.bind(this)}
+								players={this.state.players}
+								playing={this.state.playing}
+								result={this.state.result}
+								ended={this.state.roundEnd}
+							/>
+						</Col>
+					</Row>
+					<Row className="buttons">
+						<Col>
+							{!this.state.roundEnd ? (
 								<ButtonGroup margin="2rem 0">
 									{this.renderButtons()}
 								</ButtonGroup>
-							</Col>
-						</Row>
-					</Container>
-				)}
-
-				{this.state.screens.isDisplayingGame && (
-					<Container header={true} gridTemplate="4fr 1fr / 1fr">
-						<Row>
-							<Col justifyContent="center">
-								{/* {!shouldPlay && !this.state.round.ended && (
-									<H4>Waiting for opponent</H4>
-								)} */}
-								<PlayField
-									handleGameEnd={this.gameEnd.bind(this)}
-									players={this.state.players}
-									playing={this.state.playing}
-									result={this.state.result}
-									ended={this.state.roundEnd}
-								/>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								{!this.state.roundEnd ? (
-									<ButtonGroup margin="2rem 0">
-										{this.renderButtons(true)}
-									</ButtonGroup>
-								) : (
-									<Button small onClick={() => this.restart()}>
-										Play again
-									</Button>
-								)}
-							</Col>
-						</Row>
-					</Container>
-				)}
+							) : (
+								<Button small onClick={() => this.restart()}>
+									Play again
+								</Button>
+							)}
+						</Col>
+					</Row>
+					{/* <button onClick={() => this.updateScore()}> hello </button> */}
+				</Container>
 			</View>
 		);
 	}

@@ -8,7 +8,7 @@ import colors from "tokens/colors";
 const H4Styled = styled.h4`
 	font-size: ${fontSizes.h4};
 	line-height: ${lineHeights.xs};
-	font-weight: ${fontWeights.fontLight};
+	font-weight: ${fontWeights.fontBold};
 	letter-spacing: 3.5px;
 	text-align: ${props => (props.center ? "center" : "")};
 	text-transform: uppercase;

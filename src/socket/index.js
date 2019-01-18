@@ -56,37 +56,9 @@ export default () => {
 		socket.on("play", cb);
 	};
 
-	const replay = () => {
-		socket.emit("replay");
+	const reset = roomId => {
+		socket.emit("reset", roomId);
 	};
-
-	// const join = room => {
-	// 	socket.emit("joinRoom", room);
-	// };
-
-	// const opponentJoined = cb => {
-	// 	socket.on("userJoinedRoom", cb);
-	// };
-
-	// const joined = cb => {
-	// 	socket.on("joined", cb);
-	// };
-
-	// const onHandSelect = cb => {
-	// 	socket.on("handleSelectHand", cb);
-	// };
-
-	// const selectHand = value => {
-	// 	socket.emit("selectHand", value);
-	// };
-
-	// const maxPlayers = cb => {
-	// 	socket.on("maxPlayers", cb);
-	// };
-
-	// const opponentDisconnected = cb => {
-	// 	socket.on("opponentDisconnected", cb);
-	// };
 
 	return {
 		roomCreated,
@@ -104,7 +76,7 @@ export default () => {
 		selectHand,
 		handSelected,
 		play,
-		replay
+		reset
 		// join,
 		// opponentJoined,
 		// joined,

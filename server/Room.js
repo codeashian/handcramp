@@ -1,9 +1,18 @@
-class Game {
+const Game = require("./Game");
+const checkWinner = require("./functions/checkWinner");
+const getPlayersByRoomId = require("./functions/getPlayersByRoomId");
+const gameHandler = require("./gameHandler");
+const roomHandler = require("./roomHandler");
+class Room {
 	constructor(socket, io) {
 		this.io = io;
 		this.socket = socket;
 		this.connectedUsers = [];
 		this.players = [];
+
+		this.game = new Game(io, socket);
+
+		console.log(this.game);
 	}
 
 	events() {
@@ -13,7 +22,6 @@ class Game {
 			console.log("LEAVE ROOM");
 		});
 		this.socket.on("replay", this.replay.bind(this));
-		this.socket.on("disconnect", this.handleDisconnect.bind(this));
 		this.socket.on("disconnecting", this.handleDisconnecting.bind(this));
 	}
 
@@ -29,14 +37,14 @@ class Game {
 		this.socket.emit(event, data);
 	}
 
-	getPlayers() {
-		const connectedUsers = this.io.sockets.adapter.rooms[this.room].sockets;
-		const players = Object.keys(connectedUsers).map(id => {
-			return this.io.sockets.connected[id].player;
-		});
+	// getPlayers() {
+	// 	const connectedUsers = this.io.sockets.adapter.rooms[this.room].sockets;
+	// 	const players = Object.keys(connectedUsers).map(id => {
+	// 		return this.io.sockets.connected[id].player;
+	// 	});
 
-		return players;
-	}
+	// 	return players;
+	// }
 
 	createPlayer() {
 		return {
@@ -46,11 +54,12 @@ class Game {
 		};
 	}
 
-	create(room) {
-		this.room = room;
+	create() {
+		const roomId = (Math.random() * 100000) | 0;
+		this.room = roomId;
 		this.socket.player = this.createPlayer();
 		this.socket.emit("roomCreated", {
-			roomId: room,
+			roomId: roomId,
 			player: {
 				id: this.socket.id
 			}
@@ -79,11 +88,12 @@ class Game {
 			id: this.socket.id
 		});
 
-		this.events();
-	}
+		const players = getPlayersByRoomId();
 
-	handleDisconnect() {
-		console.log("player disconnected");
+		if (players && players.length === 2) {
+			new Game();
+		}
+		this.events();
 	}
 
 	handleDisconnecting() {
@@ -92,7 +102,7 @@ class Game {
 
 	handleSelectHand(hand) {
 		this.socket.player.hand = hand;
-		this.players = this.getPlayers();
+		this.players = getPlayersByRoomId(this.io, this.roomId);
 		this.emitToAll("handSelected", this.players);
 		let shouldPlay = true;
 
@@ -109,30 +119,6 @@ class Game {
 		}
 	}
 
-	checkWinner(players) {
-		const winSheet = {
-			rock: "scissors",
-			paper: "rock",
-			scissors: "paper"
-		};
-
-		if (!players[0] || !players[1]) {
-			return;
-		}
-		const player1 = players[0];
-		const player2 = players[1];
-
-		if (player1.hand === player2.hand) {
-			return false;
-		}
-
-		if (winSheet[player1.hand] === player2.hand) {
-			return player1.id;
-		}
-
-		return player2.id;
-	}
-
 	replay() {
 		if (this.players) {
 			this.players = this.players.map(player => {
@@ -143,7 +129,7 @@ class Game {
 	}
 
 	play() {
-		const winnerId = this.checkWinner(this.players);
+		const winnerId = checkWinner(this.players);
 
 		if (winnerId) {
 			this.players = this.players.map(player => {
@@ -163,4 +149,4 @@ class Game {
 	}
 }
 
-module.exports = Game;
+module.exports = Room;
