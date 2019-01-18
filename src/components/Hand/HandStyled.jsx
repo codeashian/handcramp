@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-import colors from "tokens/colors";
-
 const ComponentStyled = styled.div`
-	background-color: ${colors.black};
+	pointer-events: none;
 `;
 
 export default ComponentStyled;

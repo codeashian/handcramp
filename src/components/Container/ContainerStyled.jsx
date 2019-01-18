@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import mediaQuery from "helpers/mediaQuery";
+import spacing from "tokens/spacing.mjs";
 
 const ContainerStyled = styled.div`
 	max-width: 1200px;
@@ -20,7 +21,11 @@ const ContainerStyled = styled.div`
 
 	${mediaQuery.maxMobile`
 		padding: 5rem;
-	`}
+
+		`}
+		&.game-view {
+		padding-top: ${spacing.gameHeaderHeight} !important;
+	}
 `;
 
 export default ContainerStyled;

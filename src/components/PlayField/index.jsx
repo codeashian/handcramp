@@ -2,10 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlayFieldStyled from "./PlayFieldStyled";
 import Hand from "components/Hand";
-import H3 from "components/H3";
-import checkWinner from "helpers/game";
-import winIcon from "../../assets/icons/win.svg";
-import loseIcon from "../../assets/icons/lose.svg";
+import H2 from "components/H2";
 
 class PlayField extends React.Component {
 	constructor() {
@@ -37,30 +34,43 @@ class PlayField extends React.Component {
 	);
 
 	renderResult = () => {
-		const icons = {
-			win: winIcon,
-			lose: loseIcon,
-			draw: winIcon
+		const texts = {
+			win: "YOU WIN",
+			lose: "YOU LOSE",
+			draw: "IT'S A TIE"
 		};
 
+		let icon = this.props.result;
+
+		if (this.props.result === "draw") {
+			icon = `tie${this.props.players.user.hand}`;
+		}
+
+		console.log(icon);
+
 		return (
-			<div className="PlayField-Result">
-				{console.log(this.props.result)}
-				<Hand
-					className={`hand-${this.props.result}`}
-					hand={this.props.result}
-					play={true}
-				/>
-			</div>
+			<>
+				<H2 className="PlayField-ResultTitle"> {texts[this.props.result]}</H2>
+				<div className="PlayField-Result">
+					<Hand
+						className={`hand-${icon}`}
+						hand={icon}
+						play={true}
+						autoPlay={true}
+					/>
+				</div>
+			</>
 		);
 	};
 
 	render() {
 		const { playing, players } = this.props;
 		let scaleCircle = false;
+
 		if (playing && players.opponent.hand && players.user.hand) {
 			scaleCircle = true;
 		}
+
 		return (
 			<PlayFieldStyled {...this.props} scaleCircle={scaleCircle}>
 				<div className="PlayField-Circle" />
@@ -74,7 +84,8 @@ PlayField.propTypes = {
 	playing: PropTypes.bool,
 	players: PropTypes.object,
 	shouldPlay: PropTypes.bool,
-	handleGameEnd: PropTypes.func
+	handleGameEnd: PropTypes.func,
+	result: PropTypes.string
 };
 
 PlayField.defaultProps = {

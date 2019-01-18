@@ -1,11 +1,11 @@
 import styled, { keyframes } from "styled-components";
+import spacing from "tokens/spacing.mjs";
+import mediaQuery from "helpers/mediaQuery";
 
 const expand = keyframes`
 	0% {
 		transform: scale(1);
-
 	}
-
 
 	50% {
 		transform: scale(2);
@@ -23,7 +23,8 @@ const GameHeaderStyled = styled.div`
 	left: 0;
 	display: flex;
 	justify-content: space-between;
-	padding: 5rem;
+	padding: 2rem;
+	height: 100px;
 
 	> * {
 		width: 100%;
@@ -42,6 +43,10 @@ const GameHeaderStyled = styled.div`
 			text-align: center;
 		}
 	}
+	${mediaQuery.maxMobile`
+		padding: 5rem;
+		height: ${spacing.gameHeaderHeight};
+	`}
 `;
 
 export const Score = styled.p`

@@ -9,19 +9,26 @@ import paper from "../../assets/animations/paper.json";
 import rock from "../../assets/animations/rock.json";
 import win from "../../assets/animations/win.json";
 import lose from "../../assets/animations/lose.json";
+import tiescissors from "../../assets/animations/tie-scissors.json";
+import tiepaper from "../../assets/animations/tie-paper.json";
+import tierock from "../../assets/animations/tie-rock.json";
 
 const animations = {
 	scissors,
 	paper,
 	rock,
 	win,
-	lose
+	lose,
+	tiescissors,
+	tiepaper,
+	tierock
 };
 
 const Hand = props => {
 	const defaultOptions = {
 		loop: false,
-		autoplay: false,
+		autoplay: props.autoPlay || false,
+		// autoplay: true,
 		animationData: animations[props.hand],
 		rendererSettings: {
 			preserveAspectRatio: "xMidYMid slice"
@@ -38,7 +45,7 @@ const Hand = props => {
 		: [];
 
 	return (
-		<div className={props.className}>
+		<HandStyled className={props.className}>
 			<Lottie
 				className={props.className}
 				options={defaultOptions}
@@ -46,7 +53,7 @@ const Hand = props => {
 				isPaused={!props.play}
 				eventListeners={callback}
 			/>
-		</div>
+		</HandStyled>
 	);
 };
 
@@ -54,7 +61,8 @@ Hand.propTypes = {
 	hand: PropTypes.string,
 	play: PropTypes.bool,
 	onEnd: PropTypes.func,
-	className: PropTypes.className
+	className: PropTypes.string,
+	autoPlay: PropTypes.bool
 };
 
 Hand.defaultProps = {

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
 import View from "containers/View";
+import GameViewStyled from "./GameViewStyled";
 import getNewScreen from "helpers/getNewScreen.mjs";
 import setScreenName from "helpers/setScreenName.mjs";
 import socket from "../../socket/index";
@@ -19,12 +20,10 @@ import TitleWave from "../../components/TitleWave/index";
 const initialState = {
 	players: {
 		user: {
-			hand: "",
-			score: 2
+			hand: ""
 		},
 		opponent: {
-			hand: "",
-			score: 0
+			hand: ""
 		}
 	},
 	test: 0,
@@ -151,6 +150,7 @@ class GameView extends React.Component {
 		this.setState({
 			roundEnd: true
 		});
+		console.log("round end");
 		this.state.client.reset(this.state.roomId);
 	};
 
@@ -201,52 +201,56 @@ class GameView extends React.Component {
 
 	render() {
 		const { user, opponent } = this.state.players;
-
 		return (
 			<View title="Game">
-				<GameHeader
-					className="game-header"
-					rounds={this.state.rounds}
-					opponentScore={opponent.score || 0}
-					userScore={user.score || 0}
-					test={this.state.test}
-				/>
-				<Container
-					className="game-view"
-					header={true}
-					gridTemplate="4fr 1fr / 1fr"
-				>
-					<Row>
-						<Col justifyContent="center">
-							<div className="game-loader">
-								{user.hand && (
-									<TitleWave show={opponent.hand} text="waiting for opponent" />
+				<GameViewStyled>
+					<GameHeader
+						className="game-header"
+						rounds={this.state.rounds}
+						opponentScore={opponent.score || 0}
+						userScore={user.score || 0}
+						test={this.state.test}
+					/>
+					<Container
+						className="game-view"
+						header={true}
+						gridTemplate="4fr 1fr / 1fr"
+					>
+						<Row>
+							<Col justifyContent="center" className="GameView-Col">
+								<div className="GameView-Loader">
+									{user.hand && (
+										<TitleWave
+											show={opponent.hand}
+											text="waiting for opponent"
+										/>
+									)}
+								</div>
+								<PlayField
+									handleGameEnd={this.gameEnd.bind(this)}
+									players={this.state.players}
+									playing={this.state.playing}
+									result={this.state.result}
+									ended={this.state.roundEnd}
+								/>
+							</Col>
+						</Row>
+						<Row className="buttons">
+							<Col>
+								{!this.state.roundEnd ? (
+									<ButtonGroup margin="2rem 0">
+										{this.renderButtons()}
+									</ButtonGroup>
+								) : (
+									<Button small onClick={() => this.restart()}>
+										Play again
+									</Button>
 								)}
-							</div>
-							<PlayField
-								handleGameEnd={this.gameEnd.bind(this)}
-								players={this.state.players}
-								playing={this.state.playing}
-								result={this.state.result}
-								ended={this.state.roundEnd}
-							/>
-						</Col>
-					</Row>
-					<Row className="buttons">
-						<Col>
-							{!this.state.roundEnd ? (
-								<ButtonGroup margin="2rem 0">
-									{this.renderButtons()}
-								</ButtonGroup>
-							) : (
-								<Button small onClick={() => this.restart()}>
-									Play again
-								</Button>
-							)}
-						</Col>
-					</Row>
-					{/* <button onClick={() => this.updateScore()}> hello </button> */}
-				</Container>
+							</Col>
+						</Row>
+						{/* <button onClick={() => this.updateScore()}> hello </button> */}
+					</Container>
+				</GameViewStyled>
 			</View>
 		);
 	}
