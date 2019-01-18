@@ -7,7 +7,6 @@ A socket solution for **Rock Paper Scissors**.
 ## Setup
 
 `yarn install`
-`yarn start`
 
 ## Development
 
