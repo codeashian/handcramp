@@ -46,8 +46,6 @@ class PlayField extends React.Component {
 			icon = `tie${this.props.players.user.hand}`;
 		}
 
-		console.log(icon);
-
 		return (
 			<>
 				<H2 className="PlayField-ResultTitle"> {texts[this.props.result]}</H2>
@@ -74,7 +72,9 @@ class PlayField extends React.Component {
 		return (
 			<PlayFieldStyled {...this.props} scaleCircle={scaleCircle}>
 				<div className="PlayField-Circle" />
-				{this.props.ended ? this.renderResult() : this.renderHands()}
+				{this.props.ended && this.props.result
+					? this.renderResult()
+					: this.renderHands()}
 			</PlayFieldStyled>
 		);
 	}
@@ -85,7 +85,8 @@ PlayField.propTypes = {
 	players: PropTypes.object,
 	shouldPlay: PropTypes.bool,
 	handleGameEnd: PropTypes.func,
-	result: PropTypes.string
+	result: PropTypes.string,
+	ended: PropTypes.bool
 };
 
 PlayField.defaultProps = {

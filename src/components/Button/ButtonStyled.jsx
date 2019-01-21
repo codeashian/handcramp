@@ -4,6 +4,7 @@ import fontSizes from "tokens/fontSizes.mjs";
 import fontFamilies from "tokens/fontFamilies.mjs";
 import spacing from "tokens/spacing.mjs";
 import colors from "tokens/colors";
+import fontWeights from "tokens/fontWeights.mjs";
 
 const fadeScale = keyframes`
 	from { opacity: 0; transform: scale(0.8); }
@@ -30,9 +31,10 @@ const ButtonStyled = styled.button`
 	position: relative;
 	width: ${props => props.width || "17em"};
 	max-width: 100%;
-	height: ${props => (props.small ? "3.125em" : "4.7em")};
+	height: ${props => (props.small ? "3rem" : "4.7em")};
 	-webkit-appearance: none;
 	appearance: none;
+	font-weight: ${props => props.small && fontWeights.fontBold};
 	-moz-appearance: none;
 	cursor: pointer;
 	outline: none;

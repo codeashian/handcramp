@@ -2,7 +2,11 @@ const checkWinner = require("./functions/checkWinner");
 
 const gameHandler = client => {
 	const selectHand = (hand, roomId) => {
-		client.player.hand = hand;
+		if (!client.player) {
+			client.emitToSelf("onError", "error");
+			return;
+		}
+		client.player.hand = hand || "";
 		const players = client.getPlayersInRoom(roomId);
 
 		client.emitToAll("handSelected", roomId, players);
@@ -21,8 +25,22 @@ const gameHandler = client => {
 		}
 	};
 
+	const replay = () => {
+		if (!client.player) {
+			client.emitToSelf("onError", "error");
+			return;
+		}
+		client.emitToSelf("replay");
+	};
+
 	const reset = roomId => {
 		const players = client.getPlayersInRoom(roomId);
+
+		if (!client.player) {
+			client.emitToSelf("onError", "error");
+			return;
+		}
+
 		if (players) {
 			this.players = players.map(player => {
 				player.hand = "";
@@ -33,28 +51,51 @@ const gameHandler = client => {
 
 	const play = roomId => {
 		let players = client.getPlayersInRoom(roomId);
-		const winnerId = checkWinner(players);
-		if (winnerId) {
+		const roundWinner = checkWinner(players);
+		const room = client.getRoom(roomId);
+		let winnerId = false;
+
+		if (!client.player) {
+			client.emitToSelf("onError", "error");
+			return;
+		}
+
+		if (roundWinner) {
 			players = players.map(player => {
-				if (player.id === winnerId) {
+				if (player.id === roundWinner) {
 					player.score = player.score + 1;
 				}
 				return player;
 			});
 		}
 
-		// setTimeout(() => {
+		if (winnerId !== "draw") {
+			client.player.round = client.player.round + 1;
+		}
+
+		if (room.gameMode === "bestofthree") {
+			const [player1, player2] = players;
+			if (client.player.round === 3) {
+				winnerId = player1.score < player2.score ? player2.id : player1.id;
+				client.player.round = 3;
+			}
+		} else {
+			winnerId = roundWinner;
+		}
+
+		console.log("PLAY", client.player.round);
 		client.emitToAll("play", roomId, {
 			winnerId,
-			players
+			players,
+			round: client.player.round
 		});
-		// }, 3000);
 	};
 
 	return {
 		play,
 		selectHand,
-		reset
+		reset,
+		replay
 	};
 };
 

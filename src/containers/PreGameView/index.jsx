@@ -73,6 +73,7 @@ class PreGameView extends React.Component {
 									<input
 										ref={ref => (this.input = ref)}
 										type="text"
+										onChange={() => null}
 										value={`http://localhost:8081/${this.state.roomId}`}
 									/>
 								</Button>

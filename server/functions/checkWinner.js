@@ -12,7 +12,7 @@ const checkWinner = players => {
 	const player2 = players[1];
 
 	if (player1.hand === player2.hand) {
-		return false;
+		return "draw";
 	}
 
 	if (winSheet[player1.hand] === player2.hand) {

@@ -23,6 +23,22 @@ const client = (socket, io) => {
 		return room.gameMode;
 	};
 
+	socket.setGameMode = (roomId, gameMode) => {
+		const room = io.sockets.adapter.rooms[roomId];
+		if (gameMode) {
+			room.gameMode = gameMode;
+		}
+	};
+
+	socket.setGameRounds = (roomId, value) => {
+		const room = io.sockets.adapter.rooms[roomId];
+		room.rounds = value;
+	};
+
+	socket.getRoom = roomId => {
+		return io.sockets.adapter.rooms[roomId];
+	};
+
 	return socket;
 };
 

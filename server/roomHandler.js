@@ -1,7 +1,8 @@
 const roomHandler = (socket, io) => {
+	this.room = "";
+	let CURRENT_ROOM = "";
 	const createRoom = options => {
 		const roomId = (Math.random() * 100000) | 0;
-
 		socket.emit("roomCreated", {
 			roomId,
 			player: {
@@ -10,46 +11,47 @@ const roomHandler = (socket, io) => {
 		});
 	};
 
+	const createPlayer = () => {
+		return {
+			hand: "",
+			score: 0,
+			id: socket.id,
+			round: 1
+		};
+	};
+
 	const joinRoom = (roomId, gameMode = false) => {
-		const socketRoom = io.sockets.adapter.rooms[roomId];
+		let socketRoom = socket.getRoom(roomId);
+		// check if room is available
+		CURRENT_ROOM = roomId;
 
 		if (
 			socketRoom != undefined &&
 			Object.keys(socketRoom.sockets).length >= 2
 		) {
-			socket.emitToSelf("roomIsFull");
+			socket.emitToSelf("onError", "roomFull");
 			return;
 		}
 
-		socket.player = {
-			hand: "",
-			score: 0,
-			id: socket.id
-		};
-
+		socket.player = createPlayer();
 		socket.join(roomId);
-		const room = io.sockets.adapter.rooms[roomId];
-
-		if (gameMode) {
-			room.gameMode = gameMode;
-		}
-
+		socket.setGameMode(roomId, gameMode);
 		socket.emitToOthers("playerJoinedRoom", roomId);
 
 		socket.emitToSelf("roomJoined", {
 			id: socket.id,
-			gameMode: socket.getRoomMode(roomId)
+			room: socket.getRoom(roomId)
 		});
 	};
 
-	const disconnecting = () => {
-		socket.emitToOthers("playerDisconnected");
+	const error = message => {
+		socket.emitToAll("onError", CURRENT_ROOM, message);
 	};
 
 	return {
 		createRoom,
 		joinRoom,
-		disconnecting
+		error
 	};
 };
 

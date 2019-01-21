@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import spacing from "tokens/spacing.mjs";
+import colors from "tokens/colors";
+import fontSizes from "tokens/fontSizes.mjs";
 import mediaQuery from "helpers/mediaQuery";
 
 const expand = keyframes`
@@ -25,6 +27,22 @@ const GameHeaderStyled = styled.div`
 	justify-content: space-between;
 	padding: 2rem;
 	height: 100px;
+
+	.GameHeader-RoundBox {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		span {
+			background-color: ${colors.fontColor};
+			border-radius: 12px;
+			font-size: 14px;
+			font-weight: bold;
+			color: ${colors.lightPink};
+			display: inline-block;
+			width: 65px;
+		}
+	}
 
 	> * {
 		width: 100%;

@@ -60,6 +60,14 @@ export default () => {
 		socket.emit("reset", roomId);
 	};
 
+	const onReplay = cb => {
+		socket.on("replay", cb);
+	};
+
+	const replay = roomId => {
+		socket.emit("replay", roomId);
+	};
+
 	return {
 		roomCreated,
 		createRoom,
@@ -76,13 +84,8 @@ export default () => {
 		selectHand,
 		handSelected,
 		play,
-		reset
-		// join,
-		// opponentJoined,
-		// joined,
-		// onHandSelect,
-		// selectHand,
-		// maxPlayers,
-		// opponentDisconnected
+		reset,
+		onReplay,
+		replay
 	};
 };

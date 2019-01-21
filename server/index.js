@@ -16,21 +16,36 @@ const server = express()
 	})
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = socketIO(server);
+const config = { pingTimeout: 2000 };
+const io = socketIO(server, config);
 
 io.on("connection", function(socket) {
 	const client = clientHandler(socket, io);
 
-	const { createRoom, joinRoom, disconnecting } = roomHandler(client, io);
-	const { reset, selectHand } = gameHandler(client, io);
+	client.on("close", () => error("timeout"));
+
+	const { createRoom, joinRoom, error } = roomHandler(client, io);
+	const { reset, selectHand, replay } = gameHandler(client, io);
 
 	client.on("createRoom", createRoom);
 
 	client.on("joinRoom", joinRoom);
 
-	client.on("selectHand", selectHand);
+	client.on("disconnecting", () => error("disconnecting"));
+
+	client.on("disconnect", () => error("timeout"));
+
+	client.on("connect_timeout", () => error("timeout"));
+
+	client.on("connect_error", () => error("error"));
+
+	client.on("disconnect", () => error("error"));
 
 	client.on("reset", reset);
 
-	client.on("disconnecting", disconnecting);
+	client.on("replay", replay);
+
+	client.on("selectHand", selectHand);
+
+	// client.on("error", () => error("error"));
 });
