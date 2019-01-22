@@ -46,11 +46,13 @@ const GameHeaderStyled = styled.div`
 
 	> * {
 		width: 100%;
+		position: relative;
 
 		p {
-			display: inline-block;
+			display: block;
+			font-size: 12px;
+			letter-spacing: 3px;
 			/* position: absolute; */
-			bottom: 0;
 		}
 
 		&:last-child {
@@ -69,5 +71,10 @@ const GameHeaderStyled = styled.div`
 
 export const Score = styled.p`
 	animation: ${expand} 0.4s ease;
+	font-size: 24px !important;
+	font-weight: bold;
+	position: absolute;
+	bottom: -50px;
+	${props => props.pos}: 0;
 `;
 export default GameHeaderStyled;

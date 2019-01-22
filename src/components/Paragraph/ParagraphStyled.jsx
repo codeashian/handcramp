@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import fontFamilies from 'tokens/fontFamilies.mjs';
-import fontSizes from 'tokens/fontSizes.mjs';
-import colors from 'tokens/colors.mjs';
-import lineHeights from 'tokens/lineHeights.mjs';
+import fontFamilies from "tokens/fontFamilies.mjs";
+import fontSizes from "tokens/fontSizes.mjs";
+import colors from "tokens/colors";
+import lineHeights from "tokens/lineHeights.mjs";
 
 const ParagraphStyled = styled.p`
 	font-family: ${fontFamilies.fontRegular};

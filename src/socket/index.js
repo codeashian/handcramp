@@ -68,6 +68,14 @@ export default () => {
 		socket.emit("replay", roomId);
 	};
 
+	const nextRound = roomId => {
+		socket.emit("nextRound", roomId);
+	};
+
+	const onNextRound = cb => {
+		socket.on("nextRound", cb);
+	};
+
 	return {
 		roomCreated,
 		createRoom,
@@ -86,6 +94,8 @@ export default () => {
 		play,
 		reset,
 		onReplay,
-		replay
+		replay,
+		nextRound,
+		onNextRound
 	};
 };

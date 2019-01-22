@@ -92,6 +92,8 @@ class GameView extends React.Component {
 
 		client.onReplay(this.onReplay.bind(this));
 
+		client.onNextRound(this.onNextRound.bind(this));
+
 		client.error(this.error.bind(this));
 	}
 
@@ -191,6 +193,12 @@ class GameView extends React.Component {
 		// });
 	};
 
+	onNextRound = data => {};
+
+	nextRound = () => {
+		this.state.client.nextRound(this.state.roomId);
+	};
+
 	replay = () => {
 		this.setState({
 			...initialState,
@@ -231,6 +239,10 @@ class GameView extends React.Component {
 
 	renderPlayAgainButton = () => {
 		const texts = ["Play again", "Next round"];
+		if (this.state.result) {
+			return texts[0];
+		}
+		return texts[1];
 	};
 
 	render() {
@@ -277,12 +289,11 @@ class GameView extends React.Component {
 									</ButtonGroup>
 								) : (
 									<Button small onClick={() => this.replay()}>
-										Play again
+										{this.state.result ? "play again" : "next round"}
 									</Button>
 								)}
 							</Col>
 						</Row>
-						{/* <button onClick={() => this.updateScore()}> hello </button> */}
 					</Container>
 				</GameViewStyled>
 				<Modal active={this.state.modal}>
@@ -297,7 +308,6 @@ class GameView extends React.Component {
 						Ok
 					</Button>
 				</Modal>
-				}
 			</View>
 		);
 	}

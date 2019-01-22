@@ -44,7 +44,6 @@ class PreGameView extends React.Component {
 	};
 
 	handleCopyClick = e => {
-		console.log(e);
 		e.preventDefault();
 		this.input.select();
 

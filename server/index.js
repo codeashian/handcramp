@@ -16,8 +16,7 @@ const server = express()
 	})
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const config = { pingTimeout: 2000 };
-const io = socketIO(server, config);
+const io = socketIO(server);
 
 io.on("connection", function(socket) {
 	const client = clientHandler(socket, io);

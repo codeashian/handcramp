@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import H5 from "components/H5";
 import GameHeaderStyled, { Score } from "./GameHeaderStyled";
 import { animation, Transition } from "react-spring";
+import Paragraph from "../Paragraph/index";
 
 const GameHeader = props => (
 	<GameHeaderStyled {...props}>
 		<div>
-			<H5> You</H5>
-			<p> {props.userScore} </p>
+			<Paragraph> You</Paragraph>
+			<Score pos="left" score={props.userScore}>
+				{props.userScore}
+			</Score>
 		</div>
 		{props.gameMode === "bestofthree" ? (
 			<div className="GameHeader-RoundBox">
@@ -21,8 +24,10 @@ const GameHeader = props => (
 			</div>
 		)}
 		<div>
-			<H5>Opponent</H5>
-			<Score score={props.opponentScore}> {props.opponentScore} </Score>
+			<Paragraph>Friend</Paragraph>
+			<Score pos="right" score={props.opponentScore}>
+				{props.opponentScore}
+			</Score>
 		</div>
 	</GameHeaderStyled>
 );
