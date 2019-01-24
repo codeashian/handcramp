@@ -24,7 +24,7 @@ io.on("connection", function(socket) {
 	client.on("close", () => error("timeout"));
 
 	const { createRoom, joinRoom, error } = roomHandler(client, io);
-	const { reset, selectHand, replay } = gameHandler(client, io);
+	const { selectHand, replay, roundEnd } = gameHandler(client, io);
 
 	client.on("createRoom", createRoom);
 
@@ -40,11 +40,13 @@ io.on("connection", function(socket) {
 
 	client.on("disconnect", () => error("error"));
 
-	client.on("reset", reset);
+	// client.on("reset", reset);
 
 	client.on("replay", replay);
 
 	client.on("selectHand", selectHand);
+
+	client.on("roundEnd", roundEnd);
 
 	// client.on("error", () => error("error"));
 });

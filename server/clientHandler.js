@@ -18,6 +18,10 @@ const client = (socket, io) => {
 		});
 	};
 
+	socket.getPlayerById = id => {
+		return io.sockets.connected[id];
+	};
+
 	socket.getRoomMode = roomId => {
 		const room = io.sockets.adapter.rooms[roomId];
 		return room.gameMode;

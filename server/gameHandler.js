@@ -1,47 +1,85 @@
 const checkWinner = require("./functions/checkWinner");
 
-const gameHandler = client => {
+const gameHandler = (client, io) => {
 	const handleGameMode = (roomId, gameMode) => {
 		if (gameMode === "bestofthree") {
 			const players = client.getPlayersInRoom(roomId);
-
-			if (!players || !client.player) {
-				return;
-			}
-			const [player1, player2] = players;
-			const winnerId = player1.score < player2.score ? player2.id : player1.id;
-			const continueGame = client.player.round <= 3;
+			const winner = players.filter(item => item.score === 2);
 
 			let response = {
-				players,
-				gameEnd: !continueGame,
-				winnerId: !continueGame && winnerId,
+				players: client.getPlayersInRoom(roomId),
+				winnerId: "",
 				round: client.player.round
 			};
 
-			client.emitToAll("result", response);
+			if (winner.length) {
+				client.emitToSelf("onGameEnd", {
+					winnerId: winner[0].id,
+					players: client.getPlayersInRoom(roomId),
+					gameEnd: true
+				});
+			} else {
+				client.emitToSelf("onRoundEnd", response);
+			}
+
+			if (!client.player) {
+				return;
+			}
 		}
 	};
 
-	const selectHand = (hand, roomId) => {
+	const resetHands = roomId => {
+		const players = client.getPlayersInRoom(roomId);
+
+		if (players[0].hand && players[1].hand) {
+			players[0].hand = "";
+			players[1].hand = "";
+		}
+	};
+
+	const resetScore = roomId => {
+		const players = client.getPlayersInRoom(roomId);
+
+		players.forEach(player => {
+			player.score = 0;
+		});
+	};
+
+	const addScore = roomId => {
+		const players = client.getPlayersInRoom(roomId);
+
+		if (players[0].hand && players[1].hand) {
+			const roundWinner = checkWinner(players);
+
+			players.forEach(player => {
+				if (player.id === roundWinner) {
+					player.score = player.score + 1;
+				}
+			});
+		}
+	};
+
+	const selectHand = (hand, roomId, id) => {
+		const socket = client.getPlayerById(id);
+		const players = client.getPlayersInRoom(roomId);
+
+		resetHands(roomId);
+
+		if (socket) {
+			socket.player.hand = hand;
+		}
+
+		addScore(roomId);
+
 		if (!client.player) {
 			client.emitToSelf("onError", "error");
 			return;
 		}
-		client.player.hand = hand;
-		const players = client.getPlayersInRoom(roomId);
 
 		client.emitToAll("handSelected", roomId, players);
-		let shouldPlay = true;
 
-		if (Object.keys(players).length > 1) {
-			for (let player of players) {
-				if (!player.hand) {
-					shouldPlay = false;
-					break;
-				}
-			}
-			if (shouldPlay) {
+		if (Object.keys(players).length === 2) {
+			if (players[0].hand && players[1].hand) {
 				play(roomId);
 			}
 		}
@@ -49,27 +87,36 @@ const gameHandler = client => {
 
 	const play = roomId => {
 		const players = client.getPlayersInRoom(roomId);
-		client.emitToAll("play", players);
-	};
 
-	const roundEnd = roomId => {
-		const players = client.getPlayersInRoom(roomId);
-		const room = client.getRoom(roomId);
-		const roundWinner = checkWinner(players);
-
-		if (!roundWinner === "draw") {
-			client.players.round += 1;
-		}
-
-		if (room.gameMode) {
-			handleGameMode(roomId, room.gameMode);
+		if (!players || !client.player) {
 			return;
 		}
 
-		client.player.hand = "";
+		setTimeout(() => {
+			client.emitToAll("play", roomId, players);
+		}, 2000);
+	};
 
-		client.emitToAll("result", {
-			players,
+	const roundEnd = (roomId, userId) => {
+		const players = client.getPlayersInRoom(roomId);
+		const roundWinner = checkWinner(players);
+		const room = client.getRoom(roomId);
+
+		if (!players && !client.player) {
+			return;
+		}
+
+		if (roundWinner !== "draw") {
+			client.player.round = client.player.round + 1;
+		}
+
+		if (room.gameMode) {
+			handleGameMode(roomId, room.gameMode, userId);
+			return;
+		}
+
+		client.emitToSelf("onGameEnd", {
+			players: client.getPlayersInRoom(roomId),
 			round: client.player.round,
 			winnerId: roundWinner,
 			gameEnd: true
@@ -78,81 +125,21 @@ const gameHandler = client => {
 
 	const replay = roomId => {
 		const room = client.getRoom(roomId);
-		const players = client.getPlayersInRoom(roomId);
 
 		if (room.gameMode) {
 			client.player.round = 1;
+			resetScore(roomId);
 		}
 
-		client.player.hand = "";
+		resetHands(roomId);
 
-		client.emitToSelf("replay", players);
+		client.emitToSelf("onReplay", {
+			gameEnd: false,
+			winnerId: "",
+			players: client.getPlayersInRoom(roomId),
+			round: client.player.round
+		});
 	};
-
-	// const replay = () => {
-	// 	if (!client.player) {
-	// 		client.emitToSelf("onError", "error");
-	// 		return;
-	// 	}
-	// 	client.emitToSelf("replay");
-	// };
-
-	// const reset = roomId => {
-	// 	const players = client.getPlayersInRoom(roomId);
-
-	// 	if (!client.player) {
-	// 		client.emitToSelf("onError", "error");
-	// 		return;
-	// 	}
-
-	// 	if (players) {
-	// 		this.players = players.map(player => {
-	// 			player.hand = "";
-	// 			return player;
-	// 		});
-	// 	}
-	// };
-
-	// const play = roomId => {
-	// 	let players = client.getPlayersInRoom(roomId);
-	// 	const roundWinner = checkWinner(players);
-	// 	const room = client.getRoom(roomId);
-	// 	let winnerId = false;
-
-	// 	if (!client.player) {
-	// 		client.emitToSelf("onError", "error");
-	// 		return;
-	// 	}
-
-	// 	if (roundWinner) {
-	// 		players = players.map(player => {
-	// 			if (player.id === roundWinner) {
-	// 				player.score = player.score + 1;
-	// 			}
-	// 			return player;
-	// 		});
-	// 	}
-
-	// 	if (winnerId !== "draw") {
-	// 		client.player.round = client.player.round + 1;
-	// 	}
-
-	// 	if (room.gameMode === "bestofthree") {
-	// 		const [player1, player2] = players;
-	// 		if (client.player.round === 3) {
-	// 			winnerId = player1.score < player2.score ? player2.id : player1.id;
-	// 			client.player.round = 3;
-	// 		}
-	// 	} else {
-	// 		winnerId = roundWinner;
-	// 	}
-
-	// 	client.emitToAll("play", roomId, {
-	// 		winnerId,
-	// 		players,
-	// 		round: client.player.round
-	// 	});
-	// };
 
 	return {
 		play,

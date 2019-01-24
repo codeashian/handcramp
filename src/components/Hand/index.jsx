@@ -62,7 +62,8 @@ Hand.propTypes = {
 	play: PropTypes.bool,
 	onEnd: PropTypes.func,
 	className: PropTypes.string,
-	autoPlay: PropTypes.bool
+	autoPlay: PropTypes.bool,
+	shouldPlay: PropTypes.bool
 };
 
 Hand.defaultProps = {

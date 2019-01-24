@@ -4,8 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import View from "containers/View";
 import GameViewStyled from "./GameViewStyled";
-import getNewScreen from "helpers/getNewScreen.mjs";
-import setScreenName from "helpers/setScreenName.mjs";
+import sortPlayers from "helpers/sortPlayers.mjs";
 import socket from "../../socket/index";
 import Container from "components/Container/";
 import Row from "components/Row";
@@ -49,13 +48,20 @@ const initialPlayers = {
 
 const initialState = {
 	players: initialPlayers,
-	result: "",
-	playing: false,
 	roundEnd: false,
 	gameMode: "bestofthree",
+	shouldPlay: false,
 	selectedHand: "",
 	enableButtons: true,
-	modal: ""
+	modal: "",
+	gameEnd: false,
+	winnerId: "",
+	id: "",
+	room: {},
+	scores: {
+		user: 0,
+		opponent: 0
+	}
 };
 
 class GameView extends React.Component {
@@ -86,15 +92,25 @@ class GameView extends React.Component {
 
 		client.roomJoined(this.joined);
 
-		client.handSelected(this.onHandSelected.bind(this));
+		client.handSelected(this.handSelected.bind(this));
 
-		client.play(this.play.bind(this));
+		client.play(this.onPlay.bind(this));
 
 		client.onReplay(this.onReplay.bind(this));
 
-		client.onNextRound(this.onNextRound.bind(this));
+		client.onRoundEnd(this.handleRoundEnd.bind(this));
 
-		client.error(this.error.bind(this));
+		client.onGameEnd(this.handleGameEnd.bind(this));
+
+		// client.handSelected(this.onHandSelected.bind(this));
+
+		// client.play(this.play.bind(this));
+
+		// client.onReplay(this.onReplay.bind(this));
+
+		// client.onNextRound(this.onNextRound.bind(this));
+
+		// client.error(this.error.bind(this));
 	}
 
 	componentWillUnmount() {
@@ -112,36 +128,7 @@ class GameView extends React.Component {
 	};
 
 	roomIsFull = () => {
-		alert("room is full :( ");
 		this.props.history.push("/start");
-	};
-
-	error = modal => {
-		console.log(modal);
-		this.setState({
-			modal
-		});
-	};
-
-	onHandButtonClick(e, value) {
-		this.setState({
-			selectedHand: value,
-			enableButtons: false
-		});
-		this.state.client.selectHand(value, this.state.roomId);
-	}
-
-	onHandSelected(players) {
-		const sortedPlayers = this.sortPlayers(players);
-		this.setState({
-			players: sortedPlayers
-		});
-	}
-
-	getUserById = id => {
-		if (this.state.players) {
-			return this.state.players.filter(item => item.id === id);
-		}
 	};
 
 	sortPlayers = players => {
@@ -154,58 +141,80 @@ class GameView extends React.Component {
 		);
 	};
 
-	play = ({ winnerId, players, round }) => {
-		const sortedPlayers = this.sortPlayers(players);
-		let result = "";
-
-		if (winnerId) {
-			if (winnerId === "draw") {
-				result = "draw";
-			} else if (winnerId === this.state.id) {
-				result = "win";
-			} else {
-				result = "lose";
-			}
-		}
-
-		setTimeout(() => {
-			this.setState({
-				playing: true,
-				players: sortedPlayers,
-				result,
-				currentRound: round,
-				enableButtons: false
-			});
-		}, 1000);
-	};
-
-	gameEnd = () => {
+	handSelected = players => {
 		this.setState({
-			roundEnd: true,
-			playing: false
+			players: sortPlayers(players, this.state.id)
 		});
-		this.state.client.reset(this.state.roomId);
 	};
 
-	onReplay = ({ round }) => {
-		// this.setState({
-		// 	currentRound: round
-		// });
+	selectHand = (e, value) => {
+		e.target.classList.add("selected");
+
+		this.setState({
+			selectedHand: value,
+			enableButtons: false
+		});
+		this.state.client.selectHand(value, this.state.roomId, this.state.id);
 	};
 
-	onNextRound = data => {};
+	onAnimationEnd = () => {
+		this.state.client.roundEnd(this.state.roomId, this.state.id);
+	};
 
-	nextRound = () => {
-		this.state.client.nextRound(this.state.roomId);
+	onPlay = players => {
+		this.setState({
+			shouldPlay: true,
+			players: sortPlayers(players, this.state.id)
+		});
 	};
 
 	replay = () => {
-		this.setState({
-			...initialState,
-			players: this.state.players
-		});
+		this.state.client.replay(this.state.roomId, this.state.id);
+	};
 
-		this.state.client.replay(this.state.roomId);
+	onReplay = response => {
+		const players = sortPlayers(response.players, this.state.id);
+
+		this.setState({
+			players: players,
+			gameEnd: false,
+			selectedHand: "",
+			enableButtons: true,
+			currentRound: response.round,
+			scores: {
+				user: players.user.score,
+				opponent: players.opponent.score
+			}
+		});
+	};
+
+	handleRoundEnd = response => {
+		const players = sortPlayers(response.players, this.state.id);
+		this.setState({
+			shouldPlay: false,
+			winnerId: response.winnerId,
+			currentRound: response.round,
+			enableButtons: true,
+			selectedHand: "",
+			scores: {
+				user: players.user.score,
+				opponent: players.opponent.score
+			}
+		});
+	};
+
+	handleGameEnd = response => {
+		const players = sortPlayers(response.players, this.state.id);
+		this.setState({
+			gameEnd: true,
+			winnerId: response.winnerId,
+			shouldPlay: false,
+			players,
+			scores: {
+				user: players.user.score,
+				opponent: players.opponent.score
+			}
+		});
 	};
 
 	renderButtons() {
@@ -218,7 +227,7 @@ class GameView extends React.Component {
 					smallFont
 					width="33.33%"
 					routeChange={false}
-					onClick={e => this.onHandButtonClick(e, value)}
+					onClick={e => this.selectHand(e, value)}
 					disabled={!this.state.enableButtons}
 					selected={
 						this.state.selectedHand ? this.state.selectedHand === value : false
@@ -231,20 +240,6 @@ class GameView extends React.Component {
 		});
 	}
 
-	updateScore() {
-		this.setState({
-			test: this.state.test + 1
-		});
-	}
-
-	renderPlayAgainButton = () => {
-		const texts = ["Play again", "Next round"];
-		if (this.state.result) {
-			return texts[0];
-		}
-		return texts[1];
-	};
-
 	render() {
 		const { user, opponent } = this.state.players;
 		return (
@@ -253,8 +248,8 @@ class GameView extends React.Component {
 					<GameHeader
 						className="game-header"
 						rounds={this.state.currentRound}
-						opponentScore={opponent.score || 0}
-						userScore={user.score || 0}
+						opponentScore={this.state.scores.opponent}
+						userScore={this.state.scores.user}
 						gameMode={this.state.gameMode}
 					/>
 					<Container
@@ -273,23 +268,25 @@ class GameView extends React.Component {
 									)}
 								</div>
 								<PlayField
-									handleGameEnd={this.gameEnd.bind(this)}
+									animationEnd={this.onAnimationEnd}
 									players={this.state.players}
-									playing={this.state.playing}
-									result={this.state.result}
-									ended={this.state.roundEnd}
+									shouldPlay={this.state.shouldPlay}
+									winnerId={this.state.winnerId}
+									userId={this.state.id}
+									// ended={this.state.roundEnd}
+									gameEnd={this.state.gameEnd}
 								/>
 							</Col>
 						</Row>
 						<Row className="buttons">
 							<Col>
-								{!this.state.roundEnd ? (
+								{!this.state.gameEnd ? (
 									<ButtonGroup margin="2rem 0">
 										{this.renderButtons()}
 									</ButtonGroup>
 								) : (
 									<Button small onClick={() => this.replay()}>
-										{this.state.result ? "play again" : "next round"}
+										play again
 									</Button>
 								)}
 							</Col>

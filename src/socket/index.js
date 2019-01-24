@@ -44,58 +44,56 @@ export default () => {
 		socket.on("playerJoinedRoom", cb);
 	};
 
-	const selectHand = (value, roomId) => {
-		socket.emit("selectHand", value, roomId);
+	const selectHand = (value, roomId, socketId) => {
+		socket.emit("selectHand", value, roomId, socketId);
 	};
 
 	const handSelected = cb => {
 		socket.on("handSelected", cb);
 	};
 
+	const onReplay = cb => {
+		socket.on("onReplay", cb);
+	};
+
+	const replay = (roomId, userId) => {
+		socket.emit("replay", roomId, userId);
+	};
+
+	const roundEnd = (roomId, userId) => {
+		console.log("EMIT");
+		socket.emit("roundEnd", roomId, userId);
+	};
+
+	const onRoundEnd = cb => {
+		socket.on("onRoundEnd", cb);
+	};
+
+	const onGameEnd = cb => {
+		socket.on("onGameEnd", cb);
+	};
+
 	const play = cb => {
 		socket.on("play", cb);
-	};
-
-	const reset = roomId => {
-		socket.emit("reset", roomId);
-	};
-
-	const onReplay = cb => {
-		socket.on("replay", cb);
-	};
-
-	const replay = roomId => {
-		socket.emit("replay", roomId);
-	};
-
-	const nextRound = roomId => {
-		socket.emit("nextRound", roomId);
-	};
-
-	const onNextRound = cb => {
-		socket.on("nextRound", cb);
 	};
 
 	return {
 		roomCreated,
 		createRoom,
-
 		joinRoom,
 		roomJoined,
 		roomIsFull,
 		leaveRoom,
-
 		error,
 		playerDisconnected,
-
 		playerJoinedRoom,
 		selectHand,
 		handSelected,
-		play,
-		reset,
 		onReplay,
 		replay,
-		nextRound,
-		onNextRound
+		play,
+		roundEnd,
+		onRoundEnd,
+		onGameEnd
 	};
 };
