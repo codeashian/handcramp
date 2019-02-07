@@ -21,11 +21,7 @@ const ResultTitle = ({ winnerId, userId, userValue, opponentValue }) => {
 		["rock-scissors", "rock smashes scissors"]
 	];
 
-	if (opponentValue === userValue) {
-		return "";
-	}
-
-	const subtext = outputs
+	let subtext = outputs
 		.filter(item => {
 			return item[0].includes(opponentValue) && item[0].includes(userValue)
 				? true
@@ -33,18 +29,19 @@ const ResultTitle = ({ winnerId, userId, userValue, opponentValue }) => {
 		})
 		.map(item => item[1]);
 
-	console.log("TCL: ResultTitle -> subtext", subtext);
 	return (
 		<ResultTitleStyled>
 			<H1> {texts[result]} </H1>
-			<H5> {subtext[0]} </H5>
+			<H5> {opponentValue !== userValue && subtext[0]} </H5>
 		</ResultTitleStyled>
 	);
 };
 
 ResultTitle.propTypes = {
 	winnerId: PropTypes.string,
-	userId: PropTypes.string
+	userId: PropTypes.string,
+	userValue: PropTypes.string,
+	opponentValue: PropTypes.string
 	/*
 	children: PropTypes.oneOfType([
 		PropTypes.string,
