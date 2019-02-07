@@ -77,7 +77,6 @@ class PreGameView extends React.Component {
 							<Paragraph uppercase>
 								{this.state.userMessages[this.state.activeMessage]}
 							</Paragraph>
-							<CheckboxSlider handleChange={this.handleSliderChange} />
 							<ButtonGroup margin="0.4rem 0 2rem 0">
 								<Button index={0} smallFont width="80%">
 									<input
@@ -97,8 +96,9 @@ class PreGameView extends React.Component {
 									Copy
 								</Button>
 							</ButtonGroup>
+							<CheckboxSlider handleChange={this.handleSliderChange} />
 
-							<Button margin="15% 0" small onClick={this.handleBeginGame}>
+							<Button margin="10% 0" small onClick={this.handleBeginGame}>
 								Start Game
 							</Button>
 						</Col>

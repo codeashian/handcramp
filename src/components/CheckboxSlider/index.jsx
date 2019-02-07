@@ -19,6 +19,12 @@ const CheckboxSlider = props => {
 		handle.style.transform = `translateX(${value}px) translateY(-50%)`;
 	};
 
+	const toggleValue = (value = "noValue") => {
+		console.log("hello");
+		setIsOn(value === "noValue" ? !isOn : value);
+		move();
+	};
+
 	useEffect(() => {
 		if (!handle) {
 			return;
@@ -26,10 +32,7 @@ const CheckboxSlider = props => {
 
 		const line = document.querySelector(".line");
 
-		line.onclick = () => {
-			setIsOn(!isOn);
-			move();
-		};
+		line.onclick = () => toggleValue();
 
 		handle.onpointerdown = e => {
 			setDragging(true);
@@ -64,17 +67,21 @@ const CheckboxSlider = props => {
 	});
 
 	return (
-		<CheckboxSliderStyled {...props}>
+		<CheckboxSliderStyled {...props} isOn={isOn}>
+			<label onClick={() => toggleValue(false)}> {props.offText} </label>
 			<div ref={ref => (handle = ref)} className={`handle`}>
 				<Button circle disabled />
 			</div>
 			<div className="line" />
+			<label onClick={() => toggleValue(true)}> {props.onText} </label>
 		</CheckboxSliderStyled>
 	);
 };
 
 CheckboxSlider.propTypes = {
-	handleChange: PropTypes.func
+	handleChange: PropTypes.func,
+	onText: PropTypes.string,
+	offText: PropTypes.string
 	/*
 	children: PropTypes.oneOfType([
 		PropTypes.string,
@@ -86,6 +93,8 @@ CheckboxSlider.propTypes = {
 };
 
 CheckboxSlider.defaultProps = {
+	onText: "Best of three",
+	offText: "Casual Mode"
 	// target: '_self'
 };
 

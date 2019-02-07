@@ -1,5 +1,5 @@
 const fontFamilies = {
-	fontRegular: "BasisGrotesquePro"
+	fontRegular: "proxima-soft"
 };
 
 export default fontFamilies;
