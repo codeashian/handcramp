@@ -12,6 +12,10 @@ const client = (socket, io) => {
 	};
 
 	socket.getPlayersInRoom = roomId => {
+		if (!io.sockets.adapter.rooms[roomId]) {
+			socket.broadcast.to(roomId).emit("timeout");
+			return false;
+		}
 		const connectedUsers = io.sockets.adapter.rooms[roomId].sockets;
 		return Object.keys(connectedUsers).map(id => {
 			return io.sockets.connected[id].player;

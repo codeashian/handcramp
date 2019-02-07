@@ -48,14 +48,16 @@ const gameHandler = (client, io) => {
 	const addScore = roomId => {
 		const players = client.getPlayersInRoom(roomId);
 
-		if (players[0].hand && players[1].hand) {
-			const roundWinner = checkWinner(players);
+		if (players[0] && players[1]) {
+			if (players[0].hand && players[1].hand) {
+				const roundWinner = checkWinner(players);
 
-			players.forEach(player => {
-				if (player.id === roundWinner) {
-					player.score = player.score + 1;
-				}
-			});
+				players.forEach(player => {
+					if (player.id === roundWinner) {
+						player.score = player.score + 1;
+					}
+				});
+			}
 		}
 	};
 
@@ -63,6 +65,9 @@ const gameHandler = (client, io) => {
 		const socket = client.getPlayerById(id);
 		const players = client.getPlayersInRoom(roomId);
 
+		if (!players) {
+			client.emitToSelf("onError", "timeout");
+		}
 		resetHands(roomId);
 
 		if (socket) {

@@ -11,12 +11,15 @@ import H4 from "components/H4";
 import Col from "components/Col";
 import Button from "components/Button/";
 import ButtonGroup from "components/ButtonGroup/";
+import Paragraph from "../../components/Paragraph/index";
+import CheckboxSlider from "../../components/CheckboxSlider/index";
 
 class PreGameView extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			client: socket(),
+			gameMode: "",
 			userMessages: [
 				"Share this link with your friend",
 				"Link copied to clipboard!"
@@ -39,7 +42,13 @@ class PreGameView extends React.Component {
 	handleBeginGame = () => {
 		this.props.history.push({
 			pathname: `/${this.state.roomId}`,
-			gameMode: "bestofthree"
+			gameMode: this.state.gameMode
+		});
+	};
+
+	handleSliderChange = value => {
+		this.setState({
+			gameMode: value ? "bestofthree" : ""
 		});
 	};
 
@@ -54,20 +63,22 @@ class PreGameView extends React.Component {
 			activeMessage: 1
 		});
 	};
-
 	render() {
 		return (
 			<View title="Some view">
 				<Container gridTemplate="3fr 5fr / 1fr">
 					<Row>
 						<Col textAlign="center">
-							<H3 uppercase> Friend </H3>
+							<H4 uppercase> Friend </H4>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
-							<H4> {this.state.userMessages[this.state.activeMessage]} </H4>
-							<ButtonGroup margin="2rem 0">
+							<Paragraph uppercase>
+								{this.state.userMessages[this.state.activeMessage]}
+							</Paragraph>
+							<CheckboxSlider handleChange={this.handleSliderChange} />
+							<ButtonGroup margin="0.4rem 0 2rem 0">
 								<Button index={0} smallFont width="80%">
 									<input
 										ref={ref => (this.input = ref)}

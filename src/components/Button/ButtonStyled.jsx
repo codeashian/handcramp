@@ -30,8 +30,9 @@ const buttonActiveStyle = css`
 const ButtonStyled = styled.button`
 	position: relative;
 	width: ${props => props.width || "17em"};
+
 	max-width: 100%;
-	height: ${props => (props.small ? "3rem" : "4.7em")};
+	height: ${props => (props.small ? "3rem" : "5.6em")};
 	-webkit-appearance: none;
 	appearance: none;
 	font-weight: ${props => props.small && fontWeights.fontBold};
@@ -43,6 +44,13 @@ const ButtonStyled = styled.button`
 	box-sizing: border-box;
 	border-style: inset;
 	margin: ${props => props.margin};
+	${props =>
+		props.circle &&
+		`
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+	`}
 	${props =>
 		props.animation &&
 		`
@@ -88,6 +96,8 @@ const ButtonStyled = styled.button`
 	.Button-Front {
 		background-color: ${colors.white};
 		overflow: hidden;
+		font-weight: ${fontWeights.fontBold};
+
 		transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 		font-size: ${props =>
 			props.smallFont || props.small ? "0.75rem" : "1.25rem"};
@@ -159,6 +169,7 @@ const ButtonStyled = styled.button`
 		outline: none;
 		letter-spacing: 2px;
 		user-select: none;
+		font-weight: ${fontWeights.fontMedium};
 		font-size: ${props => (props.smallFont ? "0.75rem" : "1.25rem")};
 
 		&:focus,

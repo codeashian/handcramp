@@ -3,28 +3,14 @@ import PropTypes from "prop-types";
 import PlayFieldStyled from "./PlayFieldStyled";
 import Hand from "components/Hand";
 import H2 from "components/H2";
+import getResult from "../../helpers/getResult";
 
 class PlayField extends React.Component {
 	state = {};
 
 	gameEnd = () => {
 		const { players, winnerId, userId } = this.props;
-		let result = "";
-		if (winnerId) {
-			if (winnerId === "draw") {
-				result = "draw";
-			} else if (winnerId === userId) {
-				result = "win";
-			} else {
-				result = "lose";
-			}
-		}
-
-		const texts = {
-			win: "YOU WIN",
-			lose: "YOU LOSE",
-			draw: "IT'S A TIE"
-		};
+		const result = getResult(winnerId, userId);
 
 		let icon = result;
 
@@ -34,7 +20,6 @@ class PlayField extends React.Component {
 
 		return (
 			<>
-				<H2 className="PlayField-ResultTitle"> {texts[result]}</H2>
 				<div className="PlayField-Result">
 					<Hand
 						className={`hand-${icon}`}
@@ -49,10 +34,7 @@ class PlayField extends React.Component {
 
 	play = () => {
 		const { user, opponent } = this.props.players;
-		console.log(
-			"​PlayField -> play -> this.props.shouldPlay",
-			this.props.shouldPlay
-		);
+
 		return (
 			<>
 				<div className="PlayField-Hand PlayField-Hand--Left">

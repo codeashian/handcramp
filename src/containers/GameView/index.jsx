@@ -17,6 +17,7 @@ import GameHeader from "components/GameHeader/";
 import PlayField from "components/PlayField";
 import TitleWave from "../../components/TitleWave/index";
 import Modal from "components/Modal";
+import ResultTitle from "../../components/ResultTitle/index";
 
 const modals = {
 	disconnecting: {
@@ -78,8 +79,7 @@ class GameView extends React.Component {
 	componentDidMount() {
 		const { client } = this.state;
 		const roomId = this.props.match.params.room;
-		// const gameMode = this.props.location.gameMode;
-		const gameMode = "bestofthree";
+		const gameMode = this.props.location.gameMode;
 
 		this.setState({
 			roomId,
@@ -101,16 +101,6 @@ class GameView extends React.Component {
 		client.onRoundEnd(this.handleRoundEnd.bind(this));
 
 		client.onGameEnd(this.handleGameEnd.bind(this));
-
-		// client.handSelected(this.onHandSelected.bind(this));
-
-		// client.play(this.play.bind(this));
-
-		// client.onReplay(this.onReplay.bind(this));
-
-		// client.onNextRound(this.onNextRound.bind(this));
-
-		// client.error(this.error.bind(this));
 	}
 
 	componentWillUnmount() {
@@ -267,6 +257,14 @@ class GameView extends React.Component {
 										/>
 									)}
 								</div>
+								{this.state.gameEnd && (
+									<ResultTitle
+										winnerId={this.state.winnerId}
+										userId={this.state.id}
+										userValue={user.hand}
+										opponentValue={opponent.hand}
+									/>
+								)}
 								<PlayField
 									animationEnd={this.onAnimationEnd}
 									players={this.state.players}

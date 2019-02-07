@@ -61,7 +61,6 @@ export default () => {
 	};
 
 	const roundEnd = (roomId, userId) => {
-		console.log("EMIT");
 		socket.emit("roundEnd", roomId, userId);
 	};
 

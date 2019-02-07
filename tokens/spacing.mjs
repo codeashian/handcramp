@@ -4,7 +4,7 @@ const spacing = {
 	medium: "3.125em",
 	small: "1.5em",
 	tiny: "0.75em",
-	buttonBorderRadius: "2.8em",
+	buttonBorderRadius: "6.25em",
 	gameHeaderHeight: "12.5rem"
 };
 

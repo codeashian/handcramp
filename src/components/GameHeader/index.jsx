@@ -20,7 +20,7 @@ const GameHeader = props => (
 			</div>
 		) : (
 			<div>
-				<H5> Round {props.rounds} / 3 </H5>
+				<H5> Round {props.rounds} </H5>
 			</div>
 		)}
 		<div>
@@ -41,7 +41,7 @@ GameHeader.propTypes = {
 
 GameHeader.defaultProps = {
 	// target: '_self'
-	gameMode: "bestofthree"
+	gameMode: ""
 };
 
 export default GameHeader;

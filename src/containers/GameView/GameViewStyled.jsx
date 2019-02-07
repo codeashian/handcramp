@@ -17,10 +17,12 @@ const GameViewStyled = styled.div`
 		position: relative;
 	}
 
-	.GameView-Loader {
+	.GameView-Loader,
+	.GameView-ResultTitle {
 		position: absolute;
 		top: 0;
 	}
+
 	.game-view {
 		.PlayField-Circle {
 			transform: scale(0);
