@@ -64,7 +64,7 @@ const GameHeaderStyled = styled.div`
 		}
 	}
 	${mediaQuery.maxMobile`
-		padding: 5rem;
+		padding: 2rem 5rem;
 		height: ${spacing.gameHeaderHeight};
 	`}
 `;
@@ -74,7 +74,7 @@ export const Score = styled.p`
 	font-size: 24px !important;
 	font-weight: bold;
 	position: absolute;
-	bottom: -50px;
+	bottom: 2rem;
 	${props => props.pos}: 0;
 `;
 export default GameHeaderStyled;

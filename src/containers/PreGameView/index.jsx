@@ -1,18 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
 import View from "containers/View";
 import socket from "../../socket/index";
 import Container from "components/Container/";
 import Row from "components/Row";
-import H3 from "components/H3";
 import H4 from "components/H4";
 import Col from "components/Col";
 import Button from "components/Button/";
 import ButtonGroup from "components/ButtonGroup/";
-import Paragraph from "../../components/Paragraph/index";
 import CheckboxSlider from "../../components/CheckboxSlider/index";
+import H5 from "../../components/H5/index";
 
 class PreGameView extends React.Component {
 	constructor() {
@@ -24,7 +22,8 @@ class PreGameView extends React.Component {
 				"Share this link with your friend",
 				"Link copied to clipboard!"
 			],
-			activeMessage: 0
+			activeMessage: 0,
+			linkCopied: false
 		};
 	}
 
@@ -60,7 +59,8 @@ class PreGameView extends React.Component {
 		this.input.blur();
 
 		this.setState({
-			activeMessage: 1
+			activeMessage: 1,
+			linkCopied: true
 		});
 	};
 	render() {
@@ -74,16 +74,22 @@ class PreGameView extends React.Component {
 					</Row>
 					<Row>
 						<Col>
-							<Paragraph uppercase>
+							<H5 uppercase>
 								{this.state.userMessages[this.state.activeMessage]}
-							</Paragraph>
+							</H5>
 							<ButtonGroup margin="0.4rem 0 2rem 0">
-								<Button index={0} smallFont width="80%">
+								<Button
+									index={0}
+									smallFont
+									width="80%"
+									dark={this.state.linkCopied}
+									text={true}
+								>
 									<input
 										ref={ref => (this.input = ref)}
 										type="text"
 										onChange={() => null}
-										value={`http://localhost:8081/${this.state.roomId}`}
+										value={`http://localhost:8080/${this.state.roomId}`}
 									/>
 								</Button>
 								<Button
@@ -92,6 +98,8 @@ class PreGameView extends React.Component {
 									onClick={this.handleCopyClick}
 									smallFont
 									width="20%"
+									text={true}
+									dark={this.state.linkCopied}
 								>
 									Copy
 								</Button>

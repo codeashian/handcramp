@@ -35,7 +35,15 @@ const roomHandler = (socket, io) => {
 
 		socket.player = createPlayer();
 		socket.join(roomId);
-		socket.setGameMode(roomId, gameMode);
+		console.log(gameMode);
+		if (gameMode) {
+			socket.setGameMode(roomId, gameMode);
+		} else {
+			const room = socket.getRoom(roomId);
+			console.log(socket.id, room);
+			socket.setGameMode(roomId, room.gameMode);
+		}
+
 		socket.emitToOthers("playerJoinedRoom", roomId);
 
 		socket.emitToSelf("roomJoined", {

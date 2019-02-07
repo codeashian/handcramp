@@ -20,9 +20,12 @@ const buttonActiveStyle = css`
 	.Button-Front {
 		transform: translateY(10px) translateX(0px);
 		box-shadow: inset ${props => (props.index !== 0 ? "10px" : 0)} 6px 0px
-			${props => (props.selected ? colors.purpleDark : colors.dustPink)};
+			${props =>
+				props.selected || props.dark ? colors.purpleDark : colors.dustPink};
+
 		transition: transform 0.2s ease-in, box-shadow 0.2s ease-in 0s;
 		background-color: ${props => props.selected && colors.purple};
+		color: ${props => props.selected && colors.white};
 		position: relative;
 	}
 `;
@@ -72,16 +75,14 @@ const ButtonStyled = styled.button`
 		width: 100%;
 		box-sizing: border-box;
 		height: 100%;
-		background-color: ${colors.white};
 		border: 2px solid ${colors.borderColor};
 		border-radius: ${spacing.buttonBorderRadius};
-		color: ${colors.black};
+		color: ${props => (props.dark ? colors.white : colors.black)};
 		justify-content: center;
 		display: flex;
 		align-items: center;
 		font-size: ${fontSizes.m};
 		font-family: ${fontFamilies.fontSemibold};
-		background-color: ${colors.blue};
 		transition: 0.2s ease;
 		text-transform: uppercase;
 		letter-spacing: 2px;
@@ -89,12 +90,13 @@ const ButtonStyled = styled.button`
 	}
 
 	.Button-Back {
-		background-color: ${colors.dustPink};
+		background-color: ${props =>
+			props.dark ? colors.purpleDark : colors.dustPink};
 		transform: translateY(10px);
 	}
 
 	.Button-Front {
-		background-color: ${colors.white};
+		background-color: ${props => (props.dark ? colors.purple : colors.white)};
 		overflow: hidden;
 		font-weight: ${fontWeights.fontBold};
 
@@ -113,6 +115,9 @@ const ButtonStyled = styled.button`
 				width: 45px;
 				border-radius: 100%;
 				background-color: ${colors.purpleLight};
+				color: white;
+
+				${props.text && "content: none"}
 			}
 		`}
 	}

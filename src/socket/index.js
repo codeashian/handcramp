@@ -32,7 +32,7 @@ export default () => {
 		socket.on("roomIsFull", cb);
 	};
 
-	const error = cb => {
+	const onError = cb => {
 		socket.on("onError", cb);
 	};
 
@@ -83,7 +83,7 @@ export default () => {
 		roomJoined,
 		roomIsFull,
 		leaveRoom,
-		error,
+		onError,
 		playerDisconnected,
 		playerJoinedRoom,
 		selectHand,

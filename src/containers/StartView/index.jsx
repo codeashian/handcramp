@@ -37,8 +37,11 @@ class StartView extends React.Component {
 									justifyContent: "center"
 								}}
 							>
-								<Button margin="2rem"> Computer* </Button>
+								<Button routeChange={false} margin="2rem">
+									Computer*
+								</Button>
 								<Button
+									routeChange={false}
 									margin="2rem"
 									onClick={() => this.handleButtonClick("friend")}
 								>

@@ -26,8 +26,8 @@ const modals = {
 		message: "Your opponent didn't want to play with you anymore... Start over"
 	},
 	error: {
-		title: "Something went wrong",
-		message: "What the f did you do? Start over."
+		title: "Opponent disconnected",
+		message: "Your opponent didn't want to play with you anymore... Start over"
 	},
 	timeout: {
 		title: "TOOO SLOW",
@@ -102,6 +102,8 @@ class GameView extends React.Component {
 		client.onRoundEnd(this.handleRoundEnd.bind(this));
 
 		client.onGameEnd(this.handleGameEnd.bind(this));
+
+		client.onError(this.onError.bind(this));
 	}
 
 	componentWillUnmount() {
@@ -114,8 +116,11 @@ class GameView extends React.Component {
 	joined = ({ id, room }) => {
 		this.setState({
 			id,
-			room
+			room,
+			gameMode: room.gameMode
 		});
+
+		console.log("TCL: GameView -> joined -> room", room);
 	};
 
 	roomIsFull = () => {
@@ -176,6 +181,12 @@ class GameView extends React.Component {
 				user: players.user.score,
 				opponent: players.opponent.score
 			}
+		});
+	};
+
+	onError = type => {
+		this.setState({
+			modal: type
 		});
 	};
 
@@ -276,7 +287,11 @@ class GameView extends React.Component {
 							</Col>
 						</Row>
 						<Row className="buttons">
-							<div className={`GameView-ChooseHand ${!user.hand && "show"}`}>
+							<div
+								className={`GameView-ChooseHand ${
+									!user.hand && !this.state.gameEnd ? "show" : ""
+								}`}
+							>
 								<H5>Choose your hand</H5>
 								<svg width="20" height="11" xmlns="http://www.w3.org/2000/svg">
 									<path
@@ -295,6 +310,7 @@ class GameView extends React.Component {
 									{this.renderButtons()}
 								</ButtonGroup>
 								<Button
+									routeChange={false}
 									className={`animated-button ${this.state.gameEnd && "show"}`}
 									small
 									onClick={() => this.replay()}
