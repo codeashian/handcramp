@@ -71,3 +71,8 @@ export const slideDownBounce = keyframes`
 		75% { transform: translateY(100px) rotate(-14deg); }
 		100% { transform: translateY(0px) rotate(0);  }
 `;
+
+export const bounceOnly = (value = 10) => keyframes`
+		0% { transform: translateY(-${value}px) }
+		100% { transform: translateY(0px) }
+`;

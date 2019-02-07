@@ -4,10 +4,9 @@ import PropTypes from "prop-types";
 import H1 from "components/H1";
 import ResultTitleStyled from "./ResultTitleStyled";
 import getResult from "../../helpers/getResult";
-import H4 from "../H4/index";
 import H5 from "../H5/index";
 
-const ResultTitle = ({ winnerId, userId, userValue, opponentValue }) => {
+const ResultTitle = ({ winnerId, userId, userValue, opponentValue, show }) => {
 	const result = getResult(winnerId, userId);
 	const texts = {
 		win: "YOU WIN",
@@ -30,7 +29,7 @@ const ResultTitle = ({ winnerId, userId, userValue, opponentValue }) => {
 		.map(item => item[1]);
 
 	return (
-		<ResultTitleStyled>
+		<ResultTitleStyled show={show}>
 			<H1> {texts[result]} </H1>
 			<H5> {opponentValue !== userValue && subtext[0]} </H5>
 		</ResultTitleStyled>
@@ -42,14 +41,6 @@ ResultTitle.propTypes = {
 	userId: PropTypes.string,
 	userValue: PropTypes.string,
 	opponentValue: PropTypes.string
-	/*
-	children: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number,
-		PropTypes.element
-	]).isRequired,
-	to: PropTypes.string.isRequired
-	*/
 };
 
 ResultTitle.defaultProps = {

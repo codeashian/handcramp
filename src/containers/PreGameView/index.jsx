@@ -98,7 +98,12 @@ class PreGameView extends React.Component {
 							</ButtonGroup>
 							<CheckboxSlider handleChange={this.handleSliderChange} />
 
-							<Button margin="10% 0" small onClick={this.handleBeginGame}>
+							<Button
+								routeChange={false}
+								margin="10% 0"
+								small
+								onClick={this.handleBeginGame}
+							>
 								Start Game
 							</Button>
 						</Col>

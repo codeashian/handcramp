@@ -61,19 +61,12 @@ class PlayField extends React.Component {
 	};
 
 	renderGame = () => {
-		const { user, opponent } = this.props.players;
-		const { gameMode, gameEnd, shouldPlay } = this.props;
+		const { gameEnd } = this.props;
 		if (!gameEnd) {
 			return this.play();
 		} else {
 			return this.gameEnd();
 		}
-		// if (user.hand && opponent.hand) {
-		// } else if (user.hand && opponent.hand && gameMode) {
-		// 	return this.play(true);
-		// } else if (gameEnd) {
-		// 	return this.gameEnd();
-		// }
 	};
 
 	render() {

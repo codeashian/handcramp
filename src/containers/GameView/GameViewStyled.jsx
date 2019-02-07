@@ -1,10 +1,11 @@
-import styled, { keyframes } from "styled-components";
-import colors from "tokens/colors";
+import styled from "styled-components";
+
 import {
 	slideDown,
 	slideUp,
 	fadeOut,
 	fadeIn,
+	bounceOnly,
 	bounceScale,
 	slideDownBounce
 } from "animations";
@@ -51,6 +52,44 @@ const GameViewStyled = styled.div`
 			opacity: 0;
 			animation: ${slideDownBounce} 0.6s ease-in-out forwards 1s,
 				${fadeIn} 0.3s ease forwards 2s;
+		}
+	}
+
+	.GameView-ChooseHand {
+		text-align: center;
+		position: absolute;
+		top: -3.5rem;
+		z-index: 1;
+		animation: ${slideDown} 0.4s ease forwards 0.6s,
+			${fadeOut} 0.4s ease forwards 0.6s;
+
+		&.show {
+			opacity: 0;
+			animation: ${slideDown} 0.4s ease forwards 0.6s,
+				${fadeIn} 0.4s ease forwards 1.6s;
+		}
+
+		h5 {
+			margin-bottom: 0.5rem;
+			animation: ${bounceOnly()} 0.5s cubic-bezier(0.28, -0.03, 0.85, 0.4)
+				alternate infinite;
+		}
+
+		svg {
+			animation: ${bounceOnly(10)} 0.5s cubic-bezier(0.28, -0.03, 0.85, 0.4)
+				alternate infinite;
+		}
+	}
+
+	.GameView-ButtonArea {
+		.animated-button {
+			position: absolute;
+			animation: ${slideDown} 0.4s ease forwards, ${fadeOut} 0.4s ease forwards;
+
+			&.show {
+				opacity: 0;
+				animation: ${slideDown} 0.4s ease forwards, ${fadeIn} 0.4s ease forwards;
+			}
 		}
 	}
 `;
