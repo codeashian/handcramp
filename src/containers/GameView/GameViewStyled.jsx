@@ -109,17 +109,22 @@ const GameViewStyled = styled.div`
 	.GameView-BackButton {
 		position: absolute;
 		bottom: 0rem;
-		left: 1rem;
-
+		left: 5rem;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
-
+		&:hover {
+			img {
+				transform: translateX(-5px);
+			}
+		}
 		h5 {
 			font-size: 0.85rem;
 		}
 
 		img {
 			width: 8px;
+			transition: transform 0.4s ease;
 			margin-right: 1rem;
 		}
 	}
