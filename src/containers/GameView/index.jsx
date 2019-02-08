@@ -320,6 +320,13 @@ class GameView extends React.Component {
 							</Col>
 						</Row>
 					</Container>
+					<div
+						className="GameView-BackButton"
+						onClick={() => this.props.history.push("/")}
+					>
+						<img src="./assets/icons/arrow-back.svg" />
+						<H5>Back to start</H5>
+					</div>
 				</GameViewStyled>
 				<Modal active={this.state.modal}>
 					<H4>{this.state.modal && modals[this.state.modal].title}</H4>

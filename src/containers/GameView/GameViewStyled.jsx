@@ -105,6 +105,24 @@ const GameViewStyled = styled.div`
 			}
 		}
 	}
+
+	.GameView-BackButton {
+		position: absolute;
+		bottom: 0rem;
+		left: 1rem;
+
+		display: flex;
+		align-items: center;
+
+		h5 {
+			font-size: 0.85rem;
+		}
+
+		img {
+			width: 8px;
+			margin-right: 1rem;
+		}
+	}
 `;
 
 export default GameViewStyled;
