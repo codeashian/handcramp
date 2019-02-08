@@ -10,7 +10,7 @@ const RowStyled = styled.div`
 	flex-flow: row wrap;
 	margin: 0 auto;
 	width: 100%;
-	height: 100%;
+	height: ${props => props.height || "100%"};
 	max-width: ${props => (props.full ? "100%" : `${grid.totalWidth}`)};
 	justify-content: ${props => props.justifyContent && props.justifyContent};
 	${props =>

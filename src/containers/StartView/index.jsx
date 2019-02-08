@@ -23,7 +23,7 @@ class StartView extends React.Component {
 	render() {
 		return (
 			<View title="Start view">
-				<Container gridTemplate="1fr 1fr / 1fr" className="start-view">
+				<Container gridTemplate="1fr 1.3fr / 1fr" className="start-view">
 					<Row>
 						<Col justifyContent="flex-end">
 							<H2> Choose your opponent </H2>
@@ -31,12 +31,7 @@ class StartView extends React.Component {
 					</Row>
 					<Row>
 						<Col>
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center"
-								}}
-							>
+							<div className="button-wrapper">
 								<Button routeChange={false} margin="2rem">
 									Computer*
 								</Button>

@@ -66,13 +66,16 @@ class PreGameView extends React.Component {
 	render() {
 		return (
 			<View title="Some view">
-				<Container gridTemplate="3fr 5fr / 1fr">
+				<Container gridTemplate="1fr 5fr / 1fr">
 					<Row>
 						<Col textAlign="center">
 							<H4 uppercase> Friend </H4>
 						</Col>
 					</Row>
-					<Row>
+					<Row height="auto">
+						<Col margin="0 0 2rem 0">
+							<CheckboxSlider handleChange={this.handleSliderChange} />
+						</Col>
 						<Col>
 							<H5 uppercase>
 								{this.state.userMessages[this.state.activeMessage]}
@@ -89,7 +92,7 @@ class PreGameView extends React.Component {
 										ref={ref => (this.input = ref)}
 										type="text"
 										onChange={() => null}
-										value={`http://localhost:8080/${this.state.roomId}`}
+										value={`${window.location.origin}/${this.state.roomId}`}
 									/>
 								</Button>
 								<Button
@@ -104,7 +107,6 @@ class PreGameView extends React.Component {
 									Copy
 								</Button>
 							</ButtonGroup>
-							<CheckboxSlider handleChange={this.handleSliderChange} />
 
 							<Button
 								routeChange={false}

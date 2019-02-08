@@ -9,6 +9,7 @@ import {
 	bounceScale,
 	slideDownBounce
 } from "animations";
+import media from "../../helpers/mediaQuery";
 
 const GameViewStyled = styled.div`
 	height: 100%;
@@ -21,7 +22,14 @@ const GameViewStyled = styled.div`
 	.GameView-Loader,
 	.GameView-ResultTitle {
 		position: absolute;
+		top: 4rem;
+		width: 100%;
+		text-align: center;
+
+		${media.maxMobile`
 		top: 0;
+
+		`}
 	}
 
 	.game-view {
@@ -32,6 +40,7 @@ const GameViewStyled = styled.div`
 
 		.buttons {
 			opacity: 0;
+			width: 80%;
 			animation: ${slideUp} 0.4s ease forwards 0.5s,
 				${fadeIn} 0.4s ease forwards 0.5s;
 		}
@@ -60,6 +69,8 @@ const GameViewStyled = styled.div`
 		position: absolute;
 		top: -3.5rem;
 		z-index: 1;
+		-webkit-font-smoothing: antialiased;
+
 		animation: ${slideDown} 0.4s ease forwards 0.6s,
 			${fadeOut} 0.4s ease forwards 0.6s;
 
@@ -71,6 +82,8 @@ const GameViewStyled = styled.div`
 
 		h5 {
 			margin-bottom: 0.5rem;
+			-webkit-font-smoothing: antialiased;
+
 			animation: ${bounceOnly()} 0.5s cubic-bezier(0.28, -0.03, 0.85, 0.4)
 				alternate infinite;
 		}

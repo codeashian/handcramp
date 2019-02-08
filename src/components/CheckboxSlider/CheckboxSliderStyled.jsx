@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import colors from "tokens/colors";
 import fontFamilies from "tokens/fontFamilies.mjs";
+import media from "../../helpers/mediaQuery";
 
 const CheckboxSliderStyled = styled.div`
 	width: 6rem;
@@ -13,20 +14,21 @@ const CheckboxSliderStyled = styled.div`
 		top: 50%;
 		transform: translateY(-50%);
 		text-transform: uppercase;
-		font-size: 12px;
+		font-size: 0.76rem;
 		font-family: ${fontFamilies.fontRegular};
 		letter-spacing: 1px;
 		cursor: pointer;
 		transition: 0.1s ease;
 		-webkit-tap-highlight-color: transparent;
+
 		&:first-child {
 			${props => !props.isOn && "font-weight: bold;"}
-			left: calc(-100% - 2.5rem);
+			left: calc(-100% - 3.5rem);
 		}
 
 		&:last-child {
 			${props => props.isOn && "font-weight: bold;"}
-			right: calc(-100% - 2.5rem);
+			right: calc(-100% - 3.5rem);
 		}
 	}
 
@@ -38,6 +40,11 @@ const CheckboxSliderStyled = styled.div`
 		z-index: 1;
 		transition: 0.4s;
 		cursor: pointer;
+
+		button {
+			width: 50px;
+			height: 50px;
+		}
 
 		&:after {
 			content: "";
@@ -62,11 +69,12 @@ const CheckboxSliderStyled = styled.div`
 
 		.Button-Shadow {
 			transform: scaleY(1.04) translateY(9px) translateX(0px);
+			display: none;
 		}
 	}
 
 	.line {
-		height: 5px;
+		height: 6px;
 		border-radius: 5px;
 		width: 100%;
 		position: absolute;

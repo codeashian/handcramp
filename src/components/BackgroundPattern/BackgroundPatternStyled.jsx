@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import colors from "tokens/colors";
+import media from "../../helpers/mediaQuery";
 
 const BackgroundPatternStyled = styled.div`
 	width: 100%;
@@ -22,6 +23,13 @@ const BackgroundPatternStyled = styled.div`
 			top: 50%;
 			left: 50%;
 			transform: translateY(-50%) translateX(-50%);
+			width: 700px;
+			height: 879px;
+
+			${media.maxMobile`
+			width: 1232px;
+			height: 879px;
+			`}
 
 			.icon {
 				/* transition: 0.1s ease; */

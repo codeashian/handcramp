@@ -5,6 +5,7 @@ import fontFamilies from "tokens/fontFamilies.mjs";
 import spacing from "tokens/spacing.mjs";
 import colors from "tokens/colors";
 import fontWeights from "tokens/fontWeights.mjs";
+import mediaQuery from "helpers/mediaQuery";
 
 const fadeScale = keyframes`
 	from { opacity: 0; transform: scale(0.8); }
@@ -32,10 +33,10 @@ const buttonActiveStyle = css`
 
 const ButtonStyled = styled.button`
 	position: relative;
-	width: ${props => props.width || "17em"};
+	width: ${props => props.width || "11em"};
 
 	max-width: 100%;
-	height: ${props => (props.small ? "3rem" : "5.6em")};
+	height: ${props => (props.small ? "3rem" : "3.5em")};
 	-webkit-appearance: none;
 	appearance: none;
 	font-weight: ${props => props.small && fontWeights.fontBold};
@@ -64,6 +65,12 @@ const ButtonStyled = styled.button`
 			animation: ${fadeScale} .5s ease forwards;
 		`}
 	`}
+
+	${mediaQuery.maxMobile`
+		height: ${props => (props.small ? "3rem" : "5.6em")};	
+		width: ${props => props.width || "17em"};
+	`}
+
 
 	.Button-Shadow,
 	.Button-Back,
@@ -101,8 +108,7 @@ const ButtonStyled = styled.button`
 		font-weight: ${fontWeights.fontBold};
 
 		transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-		font-size: ${props =>
-			props.smallFont || props.small ? "0.75rem" : "1.25rem"};
+		font-size: ${props => (props.smallFont || props.small ? "0.75rem" : "1.25rem")};
 
 		${props =>
 			props.selected &&
@@ -111,8 +117,8 @@ const ButtonStyled = styled.button`
 				content: "";
 				position: absolute;
 				display: block;
-				height: 45px;
-				width: 45px;
+				height: 3rem;
+    		width: 3rem;
 				border-radius: 100%;
 				background-color: ${colors.purpleLight};
 				color: white;
@@ -127,7 +133,7 @@ const ButtonStyled = styled.button`
 		transition: 0.2s ease 0.1s;
 		display: block;
 		background-color: ${colors.pink};
-		left: 0;
+		left: 0.5rem;
 		transform: scaleY(1.04) translateY(18px) translateX(0px);
 	}
 
@@ -160,9 +166,15 @@ const ButtonStyled = styled.button`
 	`};
 
 	img {
-		height: 70%;
-		max-width: 30px;
 		position: relative;
+		height: 2.5rem;
+    max-width: 1.7rem;
+    position: relative;
+    object-fit: contain;
+
+		/* ${mediaQuery.maxMobile`
+		height: ${props => (props.small ? "3rem" : "5.6em")};	
+		`} */
 	}
 
 	input {

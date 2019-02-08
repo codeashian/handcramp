@@ -74,7 +74,7 @@ export const Score = styled.p`
 	font-size: 24px !important;
 	font-weight: bold;
 	position: absolute;
-	bottom: 2rem;
+	margin: 0;
 	${props => props.pos}: 0;
 `;
 export default GameHeaderStyled;

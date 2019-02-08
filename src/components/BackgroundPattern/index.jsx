@@ -67,14 +67,6 @@ class BackgroundPattern extends React.Component {
 
 BackgroundPattern.propTypes = {
 	onAnimationEnd: PropTypes.func
-	/*
-	children: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number,
-		PropTypes.element
-	]).isRequired,
-	to: PropTypes.string.isRequired
-	*/
 };
 
 BackgroundPattern.defaultProps = {

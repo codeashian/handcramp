@@ -21,10 +21,27 @@ const ContainerStyled = styled.div`
 
 	${mediaQuery.maxMobile`
 		padding: 5rem;
-
-		`}
+	`}
 		&.game-view {
-		padding-top: ${spacing.gameHeaderHeight} !important;
+		padding-top: 9rem !important;
+
+		${mediaQuery.maxMobile`
+			padding-top: ${spacing.gameHeaderHeight} !important;
+		`}
+	}
+
+	&.start-view {
+		h2 {
+			text-align: center;
+		}
+
+		.button-wrapper {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin: 1rem;
+			text-align: center;
+		}
 	}
 `;
 

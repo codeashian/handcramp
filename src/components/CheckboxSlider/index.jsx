@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes, { element } from "prop-types";
 import Button from "components/Button";
 import CheckboxSliderStyled from "./CheckboxSliderStyled";
+import Pointable from "react-pointable";
 
 const CheckboxSlider = props => {
 	const [dragging, setDragging] = useState(false);
@@ -10,19 +11,22 @@ const CheckboxSlider = props => {
 
 	let handle = false;
 
-	const move = () => {
+	const move = move => {
 		const handle = document.querySelector(".handle");
 		const line = document.querySelector(".line");
 		const bounds = line.getBoundingClientRect();
-
-		const value = !isOn ? bounds.width - 25 : -25;
+		const value = move ? bounds.width - 25 : -25;
 		handle.style.transform = `translateX(${value}px) translateY(-50%)`;
 	};
 
-	const toggleValue = (value = "noValue") => {
-		console.log("hello");
-		setIsOn(value === "noValue" ? !isOn : value);
-		move();
+	const toggleValue = value => {
+		if (value) {
+			setIsOn(value === "on" ? true : false);
+			move(value === "on" ? true : false);
+		} else {
+			setIsOn(!isOn);
+			move(!isOn);
+		}
 	};
 
 	useEffect(() => {
@@ -43,12 +47,12 @@ const CheckboxSlider = props => {
 			if (dragging === true) {
 				if (!isOn && startValue < e.clientX) {
 					setIsOn(true);
-					move();
+					move(true);
 				}
 
 				if (isOn && startValue > e.clientX) {
 					setIsOn(false);
-					move();
+					move(false);
 				}
 			}
 		};
@@ -68,12 +72,13 @@ const CheckboxSlider = props => {
 
 	return (
 		<CheckboxSliderStyled {...props} isOn={isOn}>
-			<label onClick={() => toggleValue(false)}> {props.offText} </label>
+			<label onClick={() => toggleValue("off")}> {props.offText} </label>
+
 			<div ref={ref => (handle = ref)} className={`handle`}>
 				<Button circle disabled />
 			</div>
 			<div className="line" />
-			<label onClick={() => toggleValue(true)}> {props.onText} </label>
+			<label onClick={() => toggleValue("on")}> {props.onText} </label>
 		</CheckboxSliderStyled>
 	);
 };

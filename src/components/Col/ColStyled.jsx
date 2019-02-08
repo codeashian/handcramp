@@ -14,6 +14,7 @@ const ColStyled = styled.div`
 	justify-content: ${props => props.justifyContent && props.justifyContent};
 	text-align: ${props => props.textAlign && props.textAlign};
 	align-self: ${props => props.alignSelf && props.alignSelf};
+	margin: ${props => props.margin && props.margin};
 	${props =>
 		props.sizes &&
 		Object.keys(props.sizes).map(
