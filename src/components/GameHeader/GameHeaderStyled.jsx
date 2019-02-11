@@ -25,7 +25,7 @@ const GameHeaderStyled = styled.div`
 	left: 0;
 	display: flex;
 	justify-content: space-between;
-	padding: 2rem;
+	padding: 4rem 2rem 2rem;
 	height: 100px;
 
 	.GameHeader-RoundBox {
@@ -64,7 +64,7 @@ const GameHeaderStyled = styled.div`
 		}
 	}
 	${mediaQuery.maxMobile`
-		padding: 2rem 5rem;
+		padding: 4rem 5rem 2rem;
 		height: ${spacing.gameHeaderHeight};
 	`}
 `;

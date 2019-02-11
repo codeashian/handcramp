@@ -12,6 +12,7 @@ import ButtonGroup from "components/ButtonGroup/";
 import CheckboxSlider from "../../components/CheckboxSlider/index";
 import H5 from "../../components/H5/index";
 import JumpingTitle from "components/JumpingTitle";
+import BackButton from "../../components/BackButton/index";
 
 class PreGameView extends React.Component {
 	constructor() {
@@ -68,6 +69,7 @@ class PreGameView extends React.Component {
 	render() {
 		return (
 			<View title="Some view">
+				<BackButton handleClick={() => this.props.history.push("/start")} />
 				<Container gridTemplate="1fr 5fr / 1fr" className="pregame-view">
 					<Row>
 						<Col textAlign="center">

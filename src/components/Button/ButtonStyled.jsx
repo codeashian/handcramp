@@ -188,7 +188,8 @@ const ButtonStyled = styled.button`
 		letter-spacing: 2px;
 		user-select: none;
 		font-weight: ${fontWeights.fontMedium};
-		font-size: 1rem;
+		font-size: 16px;
+		transform: scale(0.8);
 
 		&:focus,
 		&:active,

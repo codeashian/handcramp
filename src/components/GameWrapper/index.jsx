@@ -12,6 +12,7 @@ import PlayField from "components/PlayField";
 import TitleWave from "components/TitleWave/index";
 import ResultTitle from "components/ResultTitle/index";
 import H5 from "components/H5/index";
+import BackButton from "../BackButton/index";
 
 class GameWrapper extends React.Component {
 	renderButtons() {
@@ -39,15 +40,17 @@ class GameWrapper extends React.Component {
 
 	render() {
 		const { user, opponent } = this.props.players;
-
+		console.log(this.props);
 		return (
 			<GameWrapperStyled>
+				<BackButton handleClick={this.props.goBack} />
 				<GameHeader
 					className="game-header"
 					rounds={this.props.currentRound}
 					opponentScore={this.props.scores.opponent}
 					userScore={this.props.scores.user}
 					gameMode={this.props.gameMode}
+					opponent={this.props.opponentType}
 				/>
 				<Container
 					className="game-view"
@@ -112,10 +115,6 @@ class GameWrapper extends React.Component {
 						</Col>
 					</Row>
 				</Container>
-				<div className="GameView-BackButton" onClick={this.props.goBack}>
-					<img src="./assets/icons/arrow-back.svg" />
-					<H5>Back to start</H5>
-				</div>
 			</GameWrapperStyled>
 		);
 	}
@@ -143,7 +142,8 @@ GameWrapper.propTypes = {
 	selectedHand: PropTypes.string,
 	enableButtons: PropTypes.bool,
 	onAnimationEnd: PropTypes.func,
-	goBack: PropTypes.func
+	goBack: PropTypes.func,
+	opponentType: PropTypes.string
 };
 
 GameWrapper.defaultProps = {

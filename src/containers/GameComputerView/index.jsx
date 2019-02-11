@@ -112,6 +112,8 @@ class GameComputerView extends React.Component {
 					hand: ""
 				}
 			},
+			winnerId: "",
+			shouldPlay: false,
 			enableButtons: true,
 			currentRound: this.state.currentRound + 1,
 			scores: {
@@ -167,6 +169,7 @@ class GameComputerView extends React.Component {
 					selectHand={this.selectHand}
 					replay={this.onReplay}
 					scores={this.state.scores}
+					opponentType="Computer"
 					goBack={() => this.props.history.push("/start")}
 				/>
 			</View>

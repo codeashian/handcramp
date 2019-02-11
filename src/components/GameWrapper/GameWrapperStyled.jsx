@@ -107,9 +107,10 @@ const GameWrapperStyled = styled.div`
 
 	.GameView-BackButton {
 		position: absolute;
-		bottom: 0rem;
+		top: 0rem;
 		left: 5rem;
 		cursor: pointer;
+		z-index: 1;
 		display: flex;
 		align-items: center;
 		&:hover {
