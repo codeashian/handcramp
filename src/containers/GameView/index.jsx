@@ -225,6 +225,7 @@ class GameView extends React.Component {
 					selectHand={this.selectHand}
 					replay={this.replay}
 					opponentType="Friend"
+					scores={this.state.scores}
 					goBack={() => this.props.history.push("/start")}
 				/>
 				<Modal active={this.state.modal}>
