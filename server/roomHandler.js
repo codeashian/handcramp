@@ -20,6 +20,12 @@ const roomHandler = (socket, io) => {
 		};
 	};
 
+	const joinRoomComputer = () => {
+		socket.emitToSelf("roomJoined", {
+			id: "user"
+		});
+	};
+
 	const joinRoom = (roomId, gameMode = false) => {
 		let socketRoom = socket.getRoom(roomId);
 		// check if room is available
@@ -35,12 +41,10 @@ const roomHandler = (socket, io) => {
 
 		socket.player = createPlayer();
 		socket.join(roomId);
-		console.log(gameMode);
 		if (gameMode) {
 			socket.setGameMode(roomId, gameMode);
 		} else {
 			const room = socket.getRoom(roomId);
-			console.log(socket.id, room);
 			socket.setGameMode(roomId, room.gameMode);
 		}
 
@@ -59,6 +63,7 @@ const roomHandler = (socket, io) => {
 	return {
 		createRoom,
 		joinRoom,
+		joinRoomComputer,
 		error
 	};
 };

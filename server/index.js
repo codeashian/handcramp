@@ -23,12 +23,17 @@ io.on("connection", function(socket) {
 
 	client.on("close", () => error("timeout"));
 
-	const { createRoom, joinRoom, error } = roomHandler(client, io);
+	const { createRoom, joinRoom, joinRoomComputer, error } = roomHandler(
+		client,
+		io
+	);
 	const { selectHand, replay, roundEnd } = gameHandler(client, io);
 
 	client.on("createRoom", createRoom);
 
 	client.on("joinRoom", joinRoom);
+
+	client.on("joinRoomCompuer", joinRoomComputer);
 
 	client.on("disconnecting", () => error("disconnecting"));
 
@@ -40,13 +45,9 @@ io.on("connection", function(socket) {
 
 	client.on("disconnect", () => error("error"));
 
-	// client.on("reset", reset);
-
 	client.on("replay", replay);
 
 	client.on("selectHand", selectHand);
 
 	client.on("roundEnd", roundEnd);
-
-	// client.on("error", () => error("error"));
 });

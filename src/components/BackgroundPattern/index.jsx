@@ -25,11 +25,17 @@ class BackgroundPattern extends React.Component {
 
 	handleMouseMove = e => {
 		const paths = this.pattern.querySelectorAll(".icon");
-		const x = this.state.x - e.clientX;
-		const y = this.state.y - e.clientY;
-		for (const path of paths) {
-			this.moveItem(path, x, y);
+		let x = this.state.x - e.clientX;
+		let y = this.state.y - e.clientY;
+
+		for (let index = 0; index < paths.length; index++) {
+			if (index % 2 === 0) {
+				x = x * 1.2;
+				y = y * 1.2;
+			}
+			this.moveItem(paths[index], x, y);
 		}
+
 		// this.updatePosition(e);
 	};
 

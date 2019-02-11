@@ -29,7 +29,8 @@ Button.propTypes = {
 	onClick: PropTypes.func,
 	margin: PropTypes.string,
 	routeChange: PropTypes.bool,
-	small: PropTypes.bool
+	small: PropTypes.bool,
+	noHover: PropTypes.bool
 };
 Button.defaultProps = {
 	disabled: false,

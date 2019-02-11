@@ -11,7 +11,6 @@ const getResult = (winnerId, userId) => {
 		}
 	}
 
-	console.log("TCL: getResult -> result", result);
 	return result;
 };
 

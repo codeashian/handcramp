@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes, { element } from "prop-types";
 import Button from "components/Button";
 import CheckboxSliderStyled from "./CheckboxSliderStyled";
-import Pointable from "react-pointable";
 
 const CheckboxSlider = props => {
 	const [dragging, setDragging] = useState(false);

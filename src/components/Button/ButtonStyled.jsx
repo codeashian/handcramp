@@ -138,7 +138,7 @@ const ButtonStyled = styled.button`
 	}
 
 	${props =>
-		!props.selected
+		!props.selected && !props.noHover
 			? `
 		&:hover {
 			.Button-Front {
@@ -155,7 +155,7 @@ const ButtonStyled = styled.button`
 
 	&.active,
 	&:active {
-		${buttonActiveStyle}
+		${props => !props.noHover && buttonActiveStyle}
 	}
 
 	${props => props.selected && buttonActiveStyle};
@@ -187,7 +187,7 @@ const ButtonStyled = styled.button`
 		letter-spacing: 2px;
 		user-select: none;
 		font-weight: ${fontWeights.fontMedium};
-		font-size: ${props => (props.smallFont ? "0.75rem" : "1.25rem")};
+		font-size: 1rem;
 
 		&:focus,
 		&:active,

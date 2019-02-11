@@ -42,7 +42,7 @@ const ViewStyled = styled.main`
 		}
 	}
 	.icon {
-		transition: 0.8s ease;
+		/* transition: 0.8s ease; */
 	}
 
 	.start-view {
@@ -56,6 +56,21 @@ const ViewStyled = styled.main`
 		> div:last-child {
 			animation: ${slideUp} 0.4s ease forwards 0.8s,
 				${fadeIn} 0.4s ease forwards 0.8s;
+		}
+	}
+
+	.pregame-view {
+		.input-message {
+			position: relative;
+			width: 100%;
+			margin: 1rem 0;
+			height: 4rem;
+
+			> * {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
 		}
 	}
 

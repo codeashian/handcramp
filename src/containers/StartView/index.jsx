@@ -13,9 +13,13 @@ import Container from "components/Container";
 class StartView extends React.Component {
 	handleButtonClick = type => {
 		if (type === "friend") {
-			const client = socket();
 			this.props.history.push({
 				pathname: "pregame"
+			});
+		} else {
+			this.props.history.push({
+				pathname: "game",
+				type: "computer"
 			});
 		}
 	};
@@ -32,8 +36,12 @@ class StartView extends React.Component {
 					<Row>
 						<Col>
 							<div className="button-wrapper">
-								<Button routeChange={false} margin="2rem">
-									Computer*
+								<Button
+									onClick={() => this.handleButtonClick("computer")}
+									routeChange={false}
+									margin="2rem"
+								>
+									Computer
 								</Button>
 								<Button
 									routeChange={false}

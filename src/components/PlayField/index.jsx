@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlayFieldStyled from "./PlayFieldStyled";
 import Hand from "components/Hand";
-import H2 from "components/H2";
 import getResult from "../../helpers/getResult";
 
 class PlayField extends React.Component {
@@ -34,7 +33,6 @@ class PlayField extends React.Component {
 
 	play = () => {
 		const { user, opponent } = this.props.players;
-
 		return (
 			<>
 				<div className="PlayField-Hand PlayField-Hand--Left">
