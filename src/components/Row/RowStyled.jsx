@@ -27,6 +27,8 @@ const RowStyled = styled.div`
 	${mediaQuery.maxContainerWidth`
 		margin-bottom: ${props => props.marginBottom || 0};
 	`}
+
+	${props => props.noFlex && "display: block; "}
 `;
 
 export default RowStyled;

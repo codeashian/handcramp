@@ -13,8 +13,9 @@ const ResultTitleStyled = styled.div`
 	h1 {
 		margin-top: 0;
 		animation: ${slideUp} 0.4s ease forwards, ${fadeOut} 0.4s ease forwards;
-		font-size: 2.5rem;
+		font-size: 3rem;
 		margin-bottom: 0.27rem;
+		font-weight: bold;
 
 		${media.maxMobile`
 			margin-bottom: 0.6rem;

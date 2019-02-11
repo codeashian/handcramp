@@ -40,6 +40,7 @@ const CheckboxSliderStyled = styled.div`
 		z-index: 1;
 		transition: 0.4s;
 		cursor: pointer;
+		touch-action: none;
 
 		button {
 			width: 50px;

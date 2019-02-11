@@ -28,6 +28,11 @@ const GameHeaderStyled = styled.div`
 	padding: 4rem 2rem 2rem;
 	height: 100px;
 
+	h5 {
+		margin-top: 15px;
+		font-size: 1.25rem !important;
+	}
+
 	.GameHeader-RoundBox {
 		display: flex;
 		flex-direction: column;

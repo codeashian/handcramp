@@ -63,10 +63,11 @@ class GameComputerView extends React.Component {
 		};
 
 		const randomHand = Math.floor(Math.random() * 3) + 1;
+		const randomWin = Math.floor(Math.random() * 6) + 1;
 		const hands = ["rock", "paper", "scissors"];
 		let opponentHand = hands[randomHand - 1];
 
-		if (currentRound % 10 !== 0) {
+		if (randomWin !== 3) {
 			opponentHand = matrix[userChoice];
 		}
 

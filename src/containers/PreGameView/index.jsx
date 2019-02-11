@@ -76,8 +76,8 @@ class PreGameView extends React.Component {
 							<H4 uppercase> {this.props.type} </H4>
 						</Col>
 					</Row>
-					<Row height="auto">
-						<Col margin="0 0 2rem 0" className="animate">
+					<Row noFlex>
+						<Col margin="0 0 4rem 0" className="animate">
 							<CheckboxSlider handleChange={this.handleSliderChange} />
 						</Col>
 						<Col>

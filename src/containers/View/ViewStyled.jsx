@@ -12,18 +12,21 @@ import {
 const ViewStyled = styled.main`
 	width: 100%;
 	max-width: 100%;
-	height: 100vh;
-	min-height: 100vh;
+	height: 100%;
 	max-height: 100vh;
+	/* min-height: 100vh; */
 	margin: 0 auto;
+	position: fixed;
 	box-sizing: border-box;
-	overflow-x: hidden;
+	overflow: hidden;
 	background-color: ${colors.lightPink};
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	overflow: hidden;
+	position: fixed;
+	top: 0;
 
 	> * {
 		transition: 0.4s ease;
@@ -84,7 +87,9 @@ const ViewStyled = styled.main`
 
 			> * {
 				position: absolute;
+				width: 100%;
 				left: 50%;
+				text-align: center;
 				transform: translateX(-50%);
 			}
 		}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes, { element } from "prop-types";
 import Button from "components/Button";
 import CheckboxSliderStyled from "./CheckboxSliderStyled";
@@ -18,14 +18,28 @@ const CheckboxSlider = props => {
 		handle.style.transform = `translateX(${value}px) translateY(-50%)`;
 	};
 
-	const toggleValue = value => {
-		if (value) {
-			setIsOn(value === "on" ? true : false);
-			move(value === "on" ? true : false);
-		} else {
-			setIsOn(!isOn);
-			move(!isOn);
+	const onDown = e => {
+		setDragging(true);
+		setStartValue(e.clientX);
+	};
+
+	const onMove = e => {
+		if (dragging === true) {
+			if (!isOn && startValue < e.clientX) {
+				setIsOn(true);
+				move(true);
+			}
+
+			if (isOn && startValue > e.clientX) {
+				setIsOn(false);
+				move(false);
+			}
 		}
+	};
+
+	const onUp = () => {
+		setDragging(false);
+		props.handleChange(isOn);
 	};
 
 	useEffect(() => {
@@ -33,38 +47,21 @@ const CheckboxSlider = props => {
 			return;
 		}
 
+		const toggleValue = value => {
+			if (value) {
+				setIsOn(value === "on" ? true : false);
+				move(value === "on" ? true : false);
+			} else {
+				setIsOn(!isOn);
+				move(!isOn);
+			}
+		};
+
 		const line = document.querySelector(".line");
 
 		line.onclick = () => toggleValue();
 
-		handle.onpointerdown = e => {
-			setDragging(true);
-			setStartValue(e.clientX);
-		};
-
-		handle.onpointermove = e => {
-			if (dragging === true) {
-				if (!isOn && startValue < e.clientX) {
-					setIsOn(true);
-					move(true);
-				}
-
-				if (isOn && startValue > e.clientX) {
-					setIsOn(false);
-					move(false);
-				}
-			}
-		};
-
-		window.onpointerup = e => {
-			setDragging(false);
-			props.handleChange(isOn);
-		};
-
 		return () => {
-			window.onpointerup = false;
-			window.onpointermove = false;
-			window.onpointerdown = false;
 			line.onclick = false;
 		};
 	});
@@ -73,7 +70,14 @@ const CheckboxSlider = props => {
 		<CheckboxSliderStyled {...props} isOn={isOn}>
 			<label onClick={() => toggleValue("off")}> {props.offText} </label>
 
-			<div ref={ref => (handle = ref)} className={`handle`}>
+			<div
+				ref={ref => (handle = ref)}
+				onPointerDown={onDown}
+				onPointerMove={onMove}
+				onPointerUp={onUp}
+				touch-action="none"
+				className={`handle`}
+			>
 				<Button circle disabled />
 			</div>
 			<div className="line" />
