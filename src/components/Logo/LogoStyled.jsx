@@ -8,8 +8,8 @@ const LogoStyled = styled.div`
 	img {
 		width: 200px;
 		opacity: 0;
-		animation: ${animations.slideDownBounce2} 0.7s ease-in-out forwards 1200ms,
-			${animations.fadeIn} 0.4s cubic-bezier(0.9, 0.6, 0.25, 1) forwards 1200ms;
+		animation: ${animations.slideDownBounce2} 0.7s ease-in-out forwards 1000ms,
+			${animations.fadeIn} 0.4s cubic-bezier(0.9, 0.6, 0.25, 1) forwards 1000ms;
 
 		${media.maxMobile`
 			width: 400px;

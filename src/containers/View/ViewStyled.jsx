@@ -46,6 +46,10 @@ const ViewStyled = styled.main`
 	}
 
 	.start-view {
+		h2 {
+			transition: transform 0.4s ease, opacity 0.4s ease;
+		}
+
 		> div {
 			opacity: 0;
 		}
@@ -60,6 +64,18 @@ const ViewStyled = styled.main`
 	}
 
 	.pregame-view {
+		.animate {
+			opacity: 0;
+			animation: ${slideUp} 0.4s ease forwards 0.4s,
+				${fadeIn} 0.4s ease forwards 0.4s;
+		}
+
+		${Array.from(Array(5).keys()).map(key => {
+			return `.animate:nth-child(${key}) {
+				animation-delay: ${key * 100 + 300}ms;
+			}`;
+		})}
+
 		.input-message {
 			position: relative;
 			width: 100%;
@@ -94,6 +110,14 @@ const ViewStyled = styled.main`
 
 			&:nth-child(even) {
 				transition-delay: 300ms;
+			}
+		}
+
+		.start-view {
+			h2,
+			button {
+				transform: translateY(30px);
+				opacity: 0;
 			}
 		}
 	}

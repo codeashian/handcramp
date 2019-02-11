@@ -58,7 +58,11 @@ class BackgroundPattern extends React.Component {
 						{paths.map((item, i) => {
 							return (
 								<g key={item.key} className="icon">
-									<G key={item.key} speed={i * 200} delay={(i + 1) * 100}>
+									<G
+										key={item.key}
+										speed={i * 200}
+										delay={(i + 1) * 100 + 1500}
+									>
 										{item}
 									</G>
 								</g>

@@ -75,13 +75,13 @@ class PreGameView extends React.Component {
 						</Col>
 					</Row>
 					<Row height="auto">
-						<Col margin="0 0 2rem 0">
+						<Col margin="0 0 2rem 0" className="animate">
 							<CheckboxSlider handleChange={this.handleSliderChange} />
 						</Col>
 						<Col>
 							{this.props.type === "friend" && (
 								<>
-									<div className="input-message">
+									<div className="input-message animate">
 										{!this.state.linkCopied ? (
 											<JumpingTitle
 												title={
@@ -92,7 +92,7 @@ class PreGameView extends React.Component {
 											<H5 uppercase>{this.state.userMessages[1]}</H5>
 										)}
 									</div>
-									<ButtonGroup margin="0.4rem 0 2rem 0">
+									<ButtonGroup margin="0.4rem 0 2rem 0" className="animate">
 										<Button
 											index={0}
 											smallFont
@@ -127,6 +127,7 @@ class PreGameView extends React.Component {
 								margin="10% 0"
 								small
 								onClick={this.handleBeginGame}
+								className="animate"
 							>
 								Start Game
 							</Button>

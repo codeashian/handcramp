@@ -41,6 +41,7 @@ const ButtonStyled = styled.button`
 	appearance: none;
 	font-weight: ${props => props.small && fontWeights.fontBold};
 	-moz-appearance: none;
+	transition: transform .4s ease, opacity .4s ease;
 	cursor: pointer;
 	outline: none;
 	border: 0;

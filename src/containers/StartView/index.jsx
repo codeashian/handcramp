@@ -14,7 +14,7 @@ class StartView extends React.Component {
 	handleButtonClick = type => {
 		if (type === "friend") {
 			this.props.history.push({
-				pathname: "pregame"
+				pathname: "friend"
 			});
 		} else {
 			this.props.history.push({
@@ -38,13 +38,13 @@ class StartView extends React.Component {
 							<div className="button-wrapper">
 								<Button
 									onClick={() => this.handleButtonClick("computer")}
-									routeChange={false}
+									routeChange={true}
 									margin="2rem"
 								>
 									Computer
 								</Button>
 								<Button
-									routeChange={false}
+									routeChange={true}
 									margin="2rem"
 									onClick={() => this.handleButtonClick("friend")}
 								>
