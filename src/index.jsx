@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "unistore/full/preact"; // For SSR: 'unistore/full/react'
 import Routes from "routes/index";
 
 import store from "store/store";

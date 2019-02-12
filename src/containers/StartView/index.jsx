@@ -26,7 +26,7 @@ class StartView extends React.Component {
 
 	render() {
 		return (
-			<View title="Start view">
+			<View title="Handcramp">
 				<Container gridTemplate="1fr 1.3fr / 1fr" className="start-view">
 					<Row>
 						<Col justifyContent="flex-end">

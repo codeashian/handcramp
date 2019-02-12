@@ -210,7 +210,7 @@ class GameView extends React.Component {
 
 	render() {
 		return (
-			<View title="Game">
+			<View title="HandCramp">
 				<GameWrapper
 					gameEnd={this.state.gameEnd}
 					currentRound={this.state.currentRound}

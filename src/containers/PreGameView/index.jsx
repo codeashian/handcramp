@@ -68,7 +68,7 @@ class PreGameView extends React.Component {
 	};
 	render() {
 		return (
-			<View title="Some view">
+			<View title="Handcramp">
 				<BackButton handleClick={() => this.props.history.push("/start")} />
 				<Container gridTemplate="1fr 5fr / 1fr" className="pregame-view">
 					<Row>

@@ -29,7 +29,7 @@ class SomeView extends React.Component {
 
 	render() {
 		return (
-			<View title="Some view">
+			<View title="Handcramp">
 				<BackgroundPattern />
 				<Container>
 					<Row>

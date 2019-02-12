@@ -155,7 +155,7 @@ class GameComputerView extends React.Component {
 
 	render() {
 		return (
-			<View title="Computer">
+			<View title="Handcramp">
 				<GameWrapper
 					gameEnd={this.state.gameEnd}
 					currentRound={this.state.currentRound}
