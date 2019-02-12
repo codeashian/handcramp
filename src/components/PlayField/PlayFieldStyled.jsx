@@ -62,6 +62,8 @@ const PlayFieldStyled = styled.div`
 		top: 50%;
 		left: 50%;
 		transform: translateX(-50%) translateY(-50%);
+		max-height: 22rem;
+		overflow: hidden;
 
 		h2 {
 			position: absolute;
@@ -79,7 +81,7 @@ const PlayFieldStyled = styled.div`
 		}
 
 		.hand-lose {
-			transform: translateY(31%);
+			transform: translateY(0%);
 		}
 
 		.hand-lose,

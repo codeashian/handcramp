@@ -6,7 +6,7 @@ import BackButtonStyled from "./BackButtonStyled";
 const BackButton = props => (
 	<BackButtonStyled {...props} onClick={props.handleClick}>
 		<img src="./assets/icons/arrow-back.svg" />
-		<H5>Back</H5>
+		<span>Back</span>
 	</BackButtonStyled>
 );
 

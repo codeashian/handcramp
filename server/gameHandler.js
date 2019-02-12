@@ -31,9 +31,11 @@ const gameHandler = (client, io) => {
 	const resetHands = roomId => {
 		const players = client.getPlayersInRoom(roomId);
 
-		if (players[0].hand && players[1].hand) {
-			players[0].hand = "";
-			players[1].hand = "";
+		if (players[0] && players[1]) {
+			if (players[0].hand && players[1].hand) {
+				players[0].hand = "";
+				players[1].hand = "";
+			}
 		}
 	};
 

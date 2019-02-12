@@ -6,7 +6,7 @@ import fontSizes from "tokens/fontSizes.mjs";
 
 const ResultTitleStyled = styled.div`
 	position: absolute;
-	top: 1rem;
+	top: calc(50% - 20rem);
 	text-align: center;
 	z-index: 1;
 
@@ -26,15 +26,16 @@ const ResultTitleStyled = styled.div`
 	h5 {
 		animation: ${slideDown} 0.4s ease forwards, ${fadeOut} 0.4s ease forwards;
 		margin-top: 1rem;
+		font-weight: 200;
 
 		${media.maxMobile`
 			margin-top: 1.6rem:
 		`}
 	}
 
-	${media.maxMobile`
-		top: -2rem;
-	`}
+	/* ${media.maxMobile`
+		top: 1rem;
+	`} */
 
 	${props =>
 		props.show &&

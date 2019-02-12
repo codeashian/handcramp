@@ -66,14 +66,16 @@ const GameWrapperStyled = styled.div`
 	.GameView-ChooseHand {
 		text-align: center;
 		position: absolute;
-		top: -3.5rem;
+		top: -2.5rem;
 		z-index: 1;
 		-webkit-font-smoothing: antialiased;
+		pointer-events: none;
 
 		animation: ${slideDown} 0.4s ease forwards 0.6s,
 			${fadeOut} 0.4s ease forwards 0.6s;
 
 		&.show {
+			pointer-events: auto;
 			opacity: 0;
 			animation: ${slideDown} 0.4s ease forwards 0.6s,
 				${fadeIn} 0.4s ease forwards 1.6s;
@@ -96,10 +98,10 @@ const GameWrapperStyled = styled.div`
 	.GameView-ButtonArea {
 		.animated-button {
 			position: absolute;
-			animation: ${slideDown} 0.4s ease forwards, ${fadeOut} 0.4s ease forwards;
+			animation: ${slideDown} 0.2s ease forwards, ${fadeOut} 0.2s ease forwards;
 
 			&.show {
-				opacity: 0;
+				/* opacity: 0; */
 				animation: ${slideDown} 0.4s ease forwards, ${fadeIn} 0.4s ease forwards;
 			}
 		}

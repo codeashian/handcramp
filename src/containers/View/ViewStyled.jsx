@@ -83,7 +83,7 @@ const ViewStyled = styled.main`
 			position: relative;
 			width: 100%;
 			margin: 1rem 0;
-			height: 4rem;
+			height: 3rem;
 
 			> * {
 				position: absolute;

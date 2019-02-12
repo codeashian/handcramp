@@ -36,7 +36,7 @@ const ButtonStyled = styled.button`
 	width: ${props => props.width || "11em"};
 
 	max-width: 100%;
-	height: ${props => (props.small ? "3rem" : "3.5em")};
+	height: ${props => (props.small ? "2.68rem" : "3.5em")};
 	-webkit-appearance: none;
 	appearance: none;
 	font-weight: ${props => props.small && fontWeights.fontBold};
@@ -68,7 +68,7 @@ const ButtonStyled = styled.button`
 	`}
 
 	${mediaQuery.maxMobile`
-		height: ${props => (props.small ? "3rem" : "5.6em")};	
+		height: ${props => (props.small ? "2.68rem" : "5.6em")};	
 		width: ${props => props.width || "17em"};
 	`}
 

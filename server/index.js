@@ -1,6 +1,11 @@
 const express = require("express");
 const socketIO = require("socket.io");
 const path = require("path");
+const Sentry = require("@sentry/node");
+
+Sentry.init({
+	dsn: "https://34ba3fad20a24955bc65dc9c2595ed3e@sentry.io/1391576"
+});
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, "../dist/index.html");
@@ -10,10 +15,12 @@ const gameHandler = require("./gameHandler");
 const roomHandler = require("./roomHandler");
 
 const server = express()
+	.use(Sentry.Handlers.requestHandler())
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
 		res.sendFile(INDEX);
 	})
+	.use(Sentry.Handlers.errorHandler())
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);

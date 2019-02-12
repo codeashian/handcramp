@@ -235,9 +235,7 @@ class GameView extends React.Component {
 						margin="3rem 0 0 0"
 						small
 						routeChange={false}
-						onClick={() =>
-							this.props.history.push(`/${this.state.opponentType}`)
-						}
+						onClick={() => this.props.history.push(`/start`)}
 					>
 						Ok
 					</Button>

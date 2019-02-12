@@ -8,8 +8,8 @@ import colors from "tokens/colors";
 const H2Styled = styled.h2`
 	font-size: ${fontSizes.h2};
 	line-height: ${lineHeights.xs};
-	font-weight: 200;
-	letter-spacing: 2px;
+	font-weight: 600;
+	letter-spacing: 4px;
 	text-align: ${props => (props.center ? "center" : "")};
 	color: ${colors.fontColor};
 `;

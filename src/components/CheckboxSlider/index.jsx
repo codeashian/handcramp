@@ -42,20 +42,19 @@ const CheckboxSlider = props => {
 		props.handleChange(isOn);
 	};
 
+	const toggleValue = value => {
+		if (value) {
+			setIsOn(value === "on" ? true : false);
+			move(value === "on" ? true : false);
+		} else {
+			setIsOn(!isOn);
+			move(!isOn);
+		}
+	};
 	useEffect(() => {
 		if (!handle) {
 			return;
 		}
-
-		const toggleValue = value => {
-			if (value) {
-				setIsOn(value === "on" ? true : false);
-				move(value === "on" ? true : false);
-			} else {
-				setIsOn(!isOn);
-				move(!isOn);
-			}
-		};
 
 		const line = document.querySelector(".line");
 
@@ -78,7 +77,7 @@ const CheckboxSlider = props => {
 				touch-action="none"
 				className={`handle`}
 			>
-				<Button circle disabled />
+				<Button dark={isOn} circle disabled />
 			</div>
 			<div className="line" />
 			<label onClick={() => toggleValue("on")}> {props.onText} </label>

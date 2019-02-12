@@ -9,9 +9,9 @@ import H5 from "../H5/index";
 const ResultTitle = ({ winnerId, userId, userValue, opponentValue, show }) => {
 	const result = getResult(winnerId, userId);
 	const texts = {
-		win: "YOU WIN",
-		lose: "YOU LOSE",
-		draw: "IT'S A TIE"
+		win: "YOU WIN!",
+		lose: "YOU LOSE!",
+		draw: "IT'S A TIE!"
 	};
 
 	const outputs = [
@@ -30,8 +30,8 @@ const ResultTitle = ({ winnerId, userId, userValue, opponentValue, show }) => {
 
 	return (
 		<ResultTitleStyled show={show}>
-			<H1> {texts[result]} </H1>
 			<H5> {opponentValue !== userValue && subtext[0]} </H5>
+			<H1> {texts[result]} </H1>
 		</ResultTitleStyled>
 	);
 };

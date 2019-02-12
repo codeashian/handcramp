@@ -13,6 +13,7 @@ import TitleWave from "components/TitleWave/index";
 import ResultTitle from "components/ResultTitle/index";
 import H5 from "components/H5/index";
 import BackButton from "../BackButton/index";
+import JumpingTitle from "../JumpingTitle/index";
 
 class GameWrapper extends React.Component {
 	renderButtons() {
@@ -87,20 +88,22 @@ class GameWrapper extends React.Component {
 								!user.hand && !this.props.gameEnd ? "show" : ""
 							}`}
 						>
-							<H5>Choose your hand</H5>
+							<JumpingTitle title="Choose your hand" />
+							{/* <H5>Choose your hand</H5>
 							<svg width="20" height="11" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M0 .645a.68.68 0 0 1 .195-.47A.677.677 0 0 1 .665 0c.181 0 .338.059.468.176L9.96 9.004 18.652.313a.64.64 0 0 1 .47-.196.64.64 0 0 1 .468.196.64.64 0 0 1 .195.468.64.64 0 0 1-.195.469l-9.16 9.16a.64.64 0 0 1-.47.195.64.64 0 0 1-.468-.195L.195 1.133A.639.639 0 0 1 .05.908.728.728 0 0 1 0 .645z"
 									fill="#000"
 									fillRule="evenodd"
 								/>
-							</svg>
+							</svg> */}
 						</div>
 
 						<Col className="GameView-ButtonArea">
 							<ButtonGroup
 								margin="2rem 0"
-								className={`animated-button ${!this.props.gameEnd && "show"}`}
+								className={`animated-button replay ${!this.props.gameEnd &&
+									"show"}`}
 							>
 								{this.renderButtons()}
 							</ButtonGroup>

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import colors from "tokens/colors";
 import fontFamilies from "tokens/fontFamilies.mjs";
-import media from "../../helpers/mediaQuery";
 
 const CheckboxSliderStyled = styled.div`
 	width: 6rem;
@@ -17,6 +15,7 @@ const CheckboxSliderStyled = styled.div`
 		font-size: 0.76rem;
 		font-family: ${fontFamilies.fontRegular};
 		letter-spacing: 1px;
+		user-select: none;
 		cursor: pointer;
 		transition: 0.1s ease;
 		-webkit-tap-highlight-color: transparent;

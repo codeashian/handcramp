@@ -7,8 +7,9 @@ import fontWeights from "tokens/fontWeights.mjs";
 const H1Styled = styled.h1`
 	font-size: ${fontSizes.h1};
 	line-height: ${lineHeights.xs};
-	font-weight: ${fontWeights.fontLight};
+	font-weight: ${fontWeights.fontBold};
 	text-transform: uppercase;
+	letter-spacing: 10px;
 	text-align: ${props => (props.center ? "center" : "")};
 `;
 

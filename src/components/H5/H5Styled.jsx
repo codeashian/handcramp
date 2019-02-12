@@ -9,7 +9,7 @@ const H5Styled = styled.h5`
 	font-size: 0.75rem;
 	line-height: ${lineHeights.xs};
 	font-weight: ${fontWeights.fontBold};
-	letter-spacing: 2px;
+	letter-spacing: 3px;
 	text-align: ${props => (props.center ? "center" : "")};
 	text-transform: uppercase;
 	color: ${colors.fontColor};
