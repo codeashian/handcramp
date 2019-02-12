@@ -16,18 +16,32 @@ const buttonActiveStyle = css`
 	.Button-Shadow {
 		transform: scaleY(1.04) translateY(0) translateX(2px);
 		opacity: 0;
+
+		${props =>
+			props.small
+				? `transform: scaleY(1.04) translateY(0) translateX(2px);`
+				: `transform: scaleY(1.04) translateY(0) translateX(2px);`}
 	}
 
 	.Button-Front {
 		transform: translateY(10px) translateX(0px);
-		box-shadow: inset ${props => (props.index !== 0 ? "10px" : 0)} 6px 0px
+		box-shadow: inset ${props => (props.index !== 0 ? "3px" : 0)} 6px 0px
 			${props =>
 				props.selected || props.dark ? colors.purpleDark : colors.dustPink};
-
+		${props =>
+			props.small &&
+			` box-shadow: inset ${props.index !== 0 ? "1px" : "0"} 3px 0px
+			${props.selected || props.dark ? colors.purpleDark : colors.dustPink};
+		`}
 		transition: transform 0.2s ease-in, box-shadow 0.2s ease-in 0s;
 		background-color: ${props => props.selected && colors.purple};
 		color: ${props => props.selected && colors.white};
 		position: relative;
+
+		${props =>
+			props.small
+				? `transform: translateY(5px) translateX(0px)`
+				: `transform: translateY(10px) translateX(0px)`}
 	}
 `;
 
@@ -100,7 +114,7 @@ const ButtonStyled = styled.button`
 	.Button-Back {
 		background-color: ${props =>
 			props.dark ? colors.purpleDark : colors.dustPink};
-		transform: translateY(10px);
+		transform: translateY(${props => (props.small ? "5px" : "10px")});
 	}
 
 	.Button-Front {
@@ -135,7 +149,9 @@ const ButtonStyled = styled.button`
 		display: block;
 		background-color: ${colors.pink};
 		left: 0.5rem;
-		transform: scaleY(1.04) translateY(18px) translateX(0px);
+		transform: scaleY(1.04) translateY(${props =>
+			props.small ? "10px" : "18px"}) translateX(${props =>
+	props.small ? "-4px" : "0"});
 	}
 
 	${props =>
@@ -143,11 +159,19 @@ const ButtonStyled = styled.button`
 			? `
 		&:hover {
 			.Button-Front {
-				transform: translateY(5px) translateX(0px);
+				${
+					props.small
+						? `transform: translateY(2px) translateX(0px);`
+						: `transform: translateY(5px) translateX(0px);`
+				}
 			}
 
 			.Button-Shadow {
-				transform: translateY(15px) translateX(0px);
+				${
+					props.small
+						? `transform: translateY(8px) translateX(-4px);`
+						: `transform: translateY(15px) translateX(0px);`
+				}
 			}
 		}
 	
