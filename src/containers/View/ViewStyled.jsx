@@ -40,6 +40,10 @@ const ViewStyled = styled.main`
 			transition: 0.4s ease;
 		}
 
+		.button {
+			transform: translateY(120px);
+		}
+
 		> div:first-child {
 			transition-duration: 0.4s;
 		}

@@ -41,7 +41,6 @@ class SomeView extends React.Component {
 										show={this.state.showContent}
 										animation
 										animationDelay="300"
-										margin="50px 0"
 										small
 										onClick={this.handleButtonClick}
 									>

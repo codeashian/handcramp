@@ -8,7 +8,6 @@ const BackgroundPatternStyled = styled.div`
 	height: 100%;
 	position: fixed;
 	margin: 0 auto;
-	cursor: pointer;
 
 	> div {
 		width: 100%;
@@ -27,8 +26,8 @@ const BackgroundPatternStyled = styled.div`
 			height: 879px;
 
 			${media.maxMobile`
-			width: 1232px;
-			height: 879px;
+			width: 2387px;
+			height: 1459px;
 			`}
 
 			.icon {

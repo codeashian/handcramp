@@ -29,7 +29,7 @@ class BackgroundPattern extends React.Component {
 		let y = this.state.y - e.clientY;
 
 		for (let index = 0; index < paths.length; index++) {
-			if (index % 2 === 0) {
+			if (index < 9) {
 				x = x * 1.2;
 				y = y * 1.2;
 			}
