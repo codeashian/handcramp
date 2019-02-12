@@ -17,9 +17,6 @@ const roomHandler = require("./roomHandler");
 const server = express()
 	.use(Sentry.Handlers.requestHandler())
 	.use(express.static("dist"))
-	.get("/.well-known/pki-validation/", (req, res) => {
-		res.sendFile(path.join(__dirname, "80DAE963282F0DD74208E314FD7FA9D4.txt"));
-	})
 	.all("*", (req, res) => {
 		res.sendFile(INDEX);
 	})
