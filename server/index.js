@@ -18,7 +18,8 @@ const server = express()
 	.use(Sentry.Handlers.requestHandler())
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
-		res.sendFile(INDEX);
+		res.set("Content-Type", "text/html");
+		res.send(INDEX);
 	})
 	.use(Sentry.Handlers.errorHandler())
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
