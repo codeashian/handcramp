@@ -8,6 +8,8 @@ const BackgroundPatternStyled = styled.div`
 	height: 100%;
 	position: fixed;
 	margin: 0 auto;
+	display: none;
+	pointer-events: none;
 
 	> div {
 		width: 100%;
@@ -22,12 +24,11 @@ const BackgroundPatternStyled = styled.div`
 			top: 50%;
 			left: 50%;
 			transform: translateY(-50%) translateX(-50%);
-			width: 700px;
-			height: 879px;
+			width: 2000px;
+			height: 1279px;
 
 			${media.maxMobile`
-			width: 2387px;
-			height: 1459px;
+				
 			`}
 
 			.icon {
@@ -35,6 +36,11 @@ const BackgroundPatternStyled = styled.div`
 			}
 		}
 	}
+
+	${media.maxMobile`
+		pointer-events: all;
+		display: block;			
+	`}
 `;
 
 export const IconStyled = styled.div`

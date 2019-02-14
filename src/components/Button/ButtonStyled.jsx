@@ -7,11 +7,6 @@ import colors from "tokens/colors";
 import fontWeights from "tokens/fontWeights.mjs";
 import mediaQuery from "helpers/mediaQuery";
 
-const fadeScale = keyframes`
-	from { opacity: 0; transform: scale(0.8); }
-	to: { opacity: 1; transform: scale(1);}
-`;
-
 const buttonActiveStyle = css`
 	.Button-Shadow {
 		transform: scaleY(1.04) translateY(0) translateX(2px);
@@ -70,16 +65,7 @@ const ButtonStyled = styled.button`
 		height: 50px;
 		border-radius: 100%;
 	`}
-	${props =>
-		props.animation &&
-		`
-		opacity: 0;
-		${props.show &&
-			`
-			opacity: 1;
-			animation: ${fadeScale} .5s ease forwards;
-		`}
-	`}
+
 
 	${mediaQuery.maxMobile`
 		height: ${props => (props.small ? "2.68rem" : "5.6em")};	

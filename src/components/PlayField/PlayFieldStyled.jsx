@@ -10,6 +10,7 @@ const PlayFieldStyled = styled.div`
 	display: flex;
 	justify-content: center;
 	height: 18.75rem;
+	min-height: 26rem;
 
 	.PlayField-Circle {
 		width: 18.75rem;
@@ -44,7 +45,7 @@ const PlayFieldStyled = styled.div`
 
 	.PlayField-Hand {
 		position: absolute;
-		top: 50%;
+		top: 38%;
 		pointer-events: none;
 		width: 20rem;
 
@@ -68,8 +69,12 @@ const PlayFieldStyled = styled.div`
 		top: 50%;
 		left: 50%;
 		transform: translateX(-50%) translateY(-50%);
-		max-height: 27rem;
+		max-height: 18rem;
 		overflow: hidden;
+
+		${mediaQuery.midMobile`
+			max-height: 21rem;
+		`}
 
 		h2 {
 			position: absolute;
@@ -79,11 +84,16 @@ const PlayFieldStyled = styled.div`
 		}
 
 		.hand-win {
-			width: calc(18.75rem * 3);
+			width: calc(14.75rem * 3);
 
 			svg > g {
 				transform: translateX(28%);
 			}
+
+			${mediaQuery.midMobile`
+				width: calc(18.75rem * 3);
+
+			`}
 		}
 
 		.hand-lose {
@@ -92,16 +102,28 @@ const PlayFieldStyled = styled.div`
 
 		.hand-lose,
 		.hand-draw {
-			width: 21rem;
+			width: 19rem;
+
+			${mediaQuery.midMobile`
+				width: 20rem;
+			`}
 		}
 
 		.hand-tiepaper {
-			width: 39rem;
+			width: 27rem;
+
+			${mediaQuery.midMobile`
+				width: 39rem;
+			`}
 		}
 
 		.hand-tierock,
 		.hand-tiescissors {
-			width: 69rem;
+			width: 48rem;
+
+			${mediaQuery.midMobile`
+				width: 69rem;
+			`}
 		}
 	}
 `;

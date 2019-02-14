@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Circle from "components/Circle";
 import LogoStyled from "./LogoStyled";
-import colors from "../../../tokens/colors";
-import H3 from "components/H3";
 
 const Logo = props => (
 	<LogoStyled {...props}>
 		<div>
-			<img src="./assets/icons/Logo-Outlines.svg" />
+			<img
+				className="mobile-icon mobile-icon--top"
+				src="./assets/icons/mobile-top-hands.svg"
+			/>
+			<img className="logo-img" src="./assets/icons/Logo-Outlines.svg" />
+			<img className="lab-logo" src="./assets/icons/hb-lab-logo.svg" />
+			<img
+				className="mobile-icon mobile-icon--bottom"
+				src="./assets/icons/mobile-bottom-hands.svg"
+			/>
 		</div>
 	</LogoStyled>
 );

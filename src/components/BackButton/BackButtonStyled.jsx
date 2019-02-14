@@ -4,7 +4,7 @@ import mediaQuery from "helpers/mediaQuery";
 const BackButtonStyled = styled.div`
 	position: absolute;
 	top: 1rem;
-	left: 2.4rem;
+	left: 1rem;
 	cursor: pointer;
 	z-index: 1;
 	display: flex;

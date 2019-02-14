@@ -9,11 +9,11 @@ import checkWinner from "../../../server/functions/checkWinner";
 
 const initialPlayers = {
 	user: {
-		hand: "",
+		hand: "rock",
 		score: 0
 	},
 	opponent: {
-		hand: "",
+		hand: "scissors",
 		score: 0
 	}
 };
@@ -63,7 +63,7 @@ class GameComputerView extends React.Component {
 		};
 
 		const randomHand = Math.floor(Math.random() * 3) + 1;
-		const randomWin = Math.floor(Math.random() * 6) + 1;
+		const randomWin = Math.floor(Math.random() * 3) + 1;
 		const hands = ["rock", "paper", "scissors"];
 		let opponentHand = hands[randomHand - 1];
 

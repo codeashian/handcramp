@@ -36,8 +36,10 @@ class SomeView extends React.Component {
 						<Col justifyContent="center">
 							<div className="start-wrapper">
 								<Logo show={this.state.showContent} />
+
 								<div className="button">
 									<Button
+										margin="1rem 0 0 0"
 										show={this.state.showContent}
 										animation
 										animationDelay="300"

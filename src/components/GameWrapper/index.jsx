@@ -93,14 +93,14 @@ class GameWrapper extends React.Component {
 						<Col className="GameView-ButtonArea">
 							<ButtonGroup
 								margin="2rem 0"
-								className={`animated-button replay ${!this.props.gameEnd &&
-									"show"}`}
+								className={`animated-button ${!this.props.gameEnd && "show"}`}
 							>
 								{this.renderButtons()}
 							</ButtonGroup>
 							<Button
 								routeChange={false}
-								className={`animated-button ${this.props.gameEnd && "show"}`}
+								className={`animated-button replay ${this.props.gameEnd &&
+									"show"}`}
 								small
 								onClick={() => this.props.replay()}
 							>

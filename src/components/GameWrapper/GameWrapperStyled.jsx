@@ -22,7 +22,7 @@ const GameWrapperStyled = styled.div`
 	.GameView-Loader,
 	.GameView-ResultTitle {
 		position: absolute;
-		top: 4rem;
+		top: 1rem;
 		width: 100%;
 		text-align: center;
 
@@ -98,11 +98,21 @@ const GameWrapperStyled = styled.div`
 	.GameView-ButtonArea {
 		.animated-button {
 			position: absolute;
-			animation: ${slideDown} 0.2s ease forwards, ${fadeOut} 0.2s ease forwards;
+			/* animation: ${slideDown} 0.4s ease forwards, ${fadeIn} 0.4s ease forwards; */
+			z-index: -1;
+			opacity: 0;
+			transform: translateY(20px);
+			transition: transform 0.4s ease, opacity 0.4s ease;
+			&.replay {
+				margin-top: 3rem;
+				transform: translateY(-20px);
+				
+			}
 
 			&.show {
-				/* opacity: 0; */
-				animation: ${slideDown} 0.4s ease forwards, ${fadeIn} 0.4s ease forwards;
+				z-index: 1;
+				transform: translateY(0);
+				opacity: 1;
 			}
 		}
 	}

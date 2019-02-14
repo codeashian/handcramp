@@ -12,7 +12,7 @@ const CheckboxSliderStyled = styled.div`
 		top: 50%;
 		transform: translateY(-50%);
 		text-transform: uppercase;
-		font-size: 0.76rem;
+		font-size: 0.875rem;
 		font-family: ${fontFamilies.fontRegular};
 		letter-spacing: 1px;
 		user-select: none;

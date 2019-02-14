@@ -9,6 +9,11 @@ import {
 	slideDownBounce
 } from "animations";
 
+const fadeScale = keyframes`
+	from { opacity: 0; transform: scale(0.8); }
+	to: { opacity: 1; transform: scale(1);}
+`;
+
 const ViewStyled = styled.main`
 	width: 100%;
 	max-width: 100%;
@@ -41,7 +46,17 @@ const ViewStyled = styled.main`
 		}
 
 		.button {
-			transform: translateY(120px);
+			transform: translateY(120px) translateX(-50%);
+			position: absolute;
+			/* width: 100%; */
+			left: 50%;
+
+			> button {
+				opacity: 0;
+				/* position: absolute; */
+				animation: ${slideDown} 0.4s ease forwards 2000ms,
+					${fadeIn} 0.4s ease forwards 2000ms;
+			}
 		}
 
 		> div:first-child {
