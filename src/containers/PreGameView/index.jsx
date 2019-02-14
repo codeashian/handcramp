@@ -40,6 +40,27 @@ class PreGameView extends React.Component {
 		});
 	}
 
+	iosCopyToClipboard(el) {
+		var oldContentEditable = el.contentEditable,
+			oldReadOnly = el.readOnly,
+			range = document.createRange();
+
+		el.contentEditable = true;
+		el.readOnly = false;
+		range.selectNodeContents(el);
+
+		var s = window.getSelection();
+		s.removeAllRanges();
+		s.addRange(range);
+
+		el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
+
+		el.contentEditable = oldContentEditable;
+		el.readOnly = oldReadOnly;
+
+		document.execCommand("copy");
+	}
+
 	handleBeginGame = () => {
 		this.props.history.push({
 			pathname: `/${this.state.roomId}`,
@@ -49,7 +70,6 @@ class PreGameView extends React.Component {
 	};
 
 	handleSliderChange = value => {
-		console.log(value);
 		this.setState({
 			gameMode: value ? "bestofthree" : ""
 		});
@@ -58,7 +78,7 @@ class PreGameView extends React.Component {
 	handleCopyClick = e => {
 		e.preventDefault();
 		this.input.select();
-
+		this.iosCopyToClipboard(this.input);
 		document.execCommand("copy");
 		this.input.blur();
 
@@ -105,6 +125,8 @@ class PreGameView extends React.Component {
 											noHover={true}
 										>
 											<input
+												contenteditable="true"
+												readonly="false"
 												ref={ref => (this.input = ref)}
 												type="text"
 												onChange={() => null}

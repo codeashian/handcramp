@@ -23,9 +23,6 @@ const AnimatedRoute = ({ children }) => (
 				}}
 			>
 				{location => style => {
-					{
-						console.log(location);
-					}
 					return (
 						<animated.div style={style}>{children(location)}</animated.div>
 					);
