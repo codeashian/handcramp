@@ -37,6 +37,24 @@ const ViewStyled = styled.main`
 		transition: 0.4s ease;
 	}
 
+	.footer {
+		margin: 1rem 0;
+		font-size: 12px;
+		font-weight: bold;
+		color: #9d76f1;
+		letter-spacing: 3px;
+		text-align: center;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+
+		a {
+			font-weight: bold;
+			color: #9d76f1;
+			text-decoration: none;
+		}
+	}
+
 	.start-wrapper {
 		> div,
 		.button,

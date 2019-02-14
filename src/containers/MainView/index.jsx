@@ -53,6 +53,9 @@ class SomeView extends React.Component {
 						</Col>
 					</Row>
 				</Container>
+				<div className="footer">
+					Made by <a href="https://elina.io">Elina</a> & <a href="">Anders</a>
+				</div>
 			</View>
 		);
 	}

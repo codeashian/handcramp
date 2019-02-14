@@ -9,6 +9,7 @@ import Col from "components/Col";
 import socket from "socket";
 
 import Container from "components/Container";
+import BackButton from "../../components/BackButton/index";
 
 class StartView extends React.Component {
 	handleButtonClick = type => {
@@ -27,7 +28,8 @@ class StartView extends React.Component {
 	render() {
 		return (
 			<View title="Handcramp">
-				<Container gridTemplate="1fr 1.3fr / 1fr" className="start-view">
+				<Container gridTemplate="1fr 1.8fr / 1fr" className="start-view">
+					<BackButton handleClick={() => this.props.history.push("/")} />
 					<Row>
 						<Col justifyContent="flex-end">
 							<H2> Choose your opponent </H2>
