@@ -19,7 +19,7 @@ const buttonActiveStyle = css`
 
 		${props =>
 			props.small
-				? `transform: scaleY(1.04) translateY(0) translateX(2px);`
+				? `transform: scaleY(1.04) translateY(0) translateX(0px);`
 				: `transform: scaleY(1.04) translateY(0) translateX(2px);`}
 	}
 
@@ -148,10 +148,10 @@ const ButtonStyled = styled.button`
 		transition: 0.2s ease 0.1s;
 		display: block;
 		background-color: ${colors.pink};
-		left: 0.5rem;
+		left: 0;
 		transform: scaleY(1.04) translateY(${props =>
 			props.small ? "10px" : "18px"}) translateX(${props =>
-	props.small ? "-4px" : "0"});
+	props.small ? "4px" : "0.5rem"});
 	}
 
 	${props =>
@@ -162,15 +162,15 @@ const ButtonStyled = styled.button`
 				${
 					props.small
 						? `transform: translateY(2px) translateX(0px);`
-						: `transform: translateY(5px) translateX(0px);`
+						: `transform: translateY(5px) translateX(0rem);`
 				}
 			}
 
 			.Button-Shadow {
 				${
 					props.small
-						? `transform: translateY(8px) translateX(-4px);`
-						: `transform: translateY(15px) translateX(0px);`
+						? `transform: translateY(8px) translateX(2px);`
+						: `transform: translateY(15px) translateX(0.25rem);`
 				}
 			}
 		}

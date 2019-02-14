@@ -13,6 +13,12 @@ export const bounceScale = keyframes`
 	100% { transform: scale(1); }
 `;
 
+export const scale = keyframes`
+	0% { transform: scale(1); }
+	50% { transform: scale(1.4); }
+	100% { transform: scale(1); }
+`;
+
 export const bounce = keyframes`
 0%,100%{ transform:translate(0); }
 25%{ transform:rotateX(20deg) translateY(2px) rotate(-3deg); }

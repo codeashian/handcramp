@@ -97,6 +97,12 @@ class GameComputerView extends React.Component {
 				shouldPlay: true
 			});
 		}, 3000);
+
+		const circle = document.querySelector(".PlayField-Circle");
+
+		setTimeout(() => {
+			circle.classList.add("animate");
+		}, 4400);
 	};
 
 	onReplay = () => {
@@ -126,12 +132,15 @@ class GameComputerView extends React.Component {
 
 	onAnimationEnd = () => {
 		const { user, opponent } = this.state.players;
+		const circle = document.querySelector(".PlayField-Circle");
+
 		const players = [
 			{ id: "user", hand: user.hand },
 			{ id: "opponent", hand: opponent.hand }
 		];
-
+		circle.classList.remove("animate");
 		const winnerId = checkWinner(players);
+
 		if (winnerId !== "draw") {
 			this.setState({
 				players: {
@@ -140,6 +149,10 @@ class GameComputerView extends React.Component {
 						...this.state.players[winnerId],
 						score: this.state.players[winnerId].score + 1
 					}
+				},
+				scores: {
+					...this.state.scores,
+					[winnerId]: this.state.players[winnerId].score + 1
 				}
 			});
 		}
@@ -171,6 +184,7 @@ class GameComputerView extends React.Component {
 					replay={this.onReplay}
 					scores={this.state.scores}
 					opponentType="Computer"
+					roundEnd={this.state.gameEnd}
 					goBack={() => this.props.history.push("/start")}
 				/>
 			</View>

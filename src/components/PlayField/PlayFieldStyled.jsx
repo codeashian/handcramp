@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import colors from "tokens/colors";
-import { bounceScale } from "animations";
+import { bounceScale, scale } from "animations";
 import mediaQuery from "helpers/mediaQuery";
 
 const PlayFieldStyled = styled.div`
@@ -19,6 +19,12 @@ const PlayFieldStyled = styled.div`
 		margin: 0 auto;
 		position: absolute;
 		top: calc(50% - 9rem);
+
+		&.animate {
+			transform: scale(1);
+			animation: ${scale} 0.4s cubic-bezier(0.25, 0.1, 0.51, 1.26) forwards;
+			animation-delay: 0s;
+		}
 
 		${props =>
 			props.scaleCircle &&
@@ -62,7 +68,7 @@ const PlayFieldStyled = styled.div`
 		top: 50%;
 		left: 50%;
 		transform: translateX(-50%) translateY(-50%);
-		max-height: 22rem;
+		max-height: 27rem;
 		overflow: hidden;
 
 		h2 {

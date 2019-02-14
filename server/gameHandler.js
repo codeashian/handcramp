@@ -5,10 +5,11 @@ const gameHandler = (client, io) => {
 		if (gameMode === "bestofthree") {
 			const players = client.getPlayersInRoom(roomId);
 			const winner = players.filter(item => item.score === 2);
-
+			const roundWinner = checkWinner(players);
+			console.log(roundWinner);
 			let response = {
 				players: client.getPlayersInRoom(roomId),
-				winnerId: "",
+				winnerId: roundWinner,
 				round: client.player.round
 			};
 

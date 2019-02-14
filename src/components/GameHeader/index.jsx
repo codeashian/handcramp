@@ -1,36 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import H5 from "components/H5";
 import GameHeaderStyled, { Score } from "./GameHeaderStyled";
 import Paragraph from "../Paragraph/index";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-const GameHeader = props => (
-	<GameHeaderStyled {...props}>
-		<div>
-			{console.log(props)}
-			<Paragraph> You</Paragraph>
-			<Score pos="left" score={props.userScore}>
-				{props.userScore}
-			</Score>
-		</div>
-		{props.gameMode === "bestofthree" ? (
-			<div className="GameHeader-RoundBox">
-				<H5> Round </H5>
-				<span>{props.rounds} / 3</span>
-			</div>
-		) : (
+const GameHeader = props => {
+	return (
+		<GameHeaderStyled {...props}>
 			<div>
-				<H5> Round {props.rounds} </H5>
+				<Paragraph> You</Paragraph>
+				<CSSTransition key={props.userScore} timeout={500} classNames="fade">
+					<Score className="animate" pos="left" score={props.userScore}>
+						{props.userScore}
+					</Score>
+				</CSSTransition>
 			</div>
-		)}
-		<div>
-			<Paragraph>{props.opponent}</Paragraph>
-			<Score pos="right" score={props.opponentScore}>
-				{props.opponentScore}
-			</Score>
-		</div>
-	</GameHeaderStyled>
-);
+			<div className="GameHeader-RoundBox">
+				{props.gameMode === "bestofthree" ? (
+					<>
+						<H5> Round </H5>
+						<span className="bestofthree">{props.rounds} / 3</span>
+					</>
+				) : (
+					<span> Round {props.rounds} </span>
+				)}
+			</div>
+			<div>
+				<Paragraph>{props.opponent}</Paragraph>
+
+				<CSSTransition
+					key={props.opponentScore}
+					timeout={500}
+					classNames="fade"
+				>
+					<Score className="animate" pos="right" score={props.opponentScore}>
+						{props.opponentScore}
+					</Score>
+				</CSSTransition>
+			</div>
+		</GameHeaderStyled>
+	);
+};
 
 GameHeader.propTypes = {
 	rounds: PropTypes.number,

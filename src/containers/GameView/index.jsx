@@ -136,6 +136,7 @@ class GameView extends React.Component {
 		e.target.classList.add("selected");
 
 		this.setState({
+			roundEnd: false,
 			selectedHand: value,
 			enableButtons: false
 		});
@@ -144,6 +145,9 @@ class GameView extends React.Component {
 
 	onAnimationEnd = () => {
 		this.state.client.roundEnd(this.state.roomId, this.state.id);
+		this.setState({
+			roundEnd: true
+		});
 	};
 
 	onPlay = players => {
@@ -151,6 +155,11 @@ class GameView extends React.Component {
 			shouldPlay: true,
 			players: sortPlayers(players, this.state.id)
 		});
+
+		const circle = document.querySelector(".PlayField-Circle");
+		setTimeout(() => {
+			circle.classList.add("animate");
+		}, 1400);
 	};
 
 	replay = () => {
@@ -164,6 +173,7 @@ class GameView extends React.Component {
 			players: players,
 			gameEnd: false,
 			selectedHand: "",
+			roundEnd: false,
 			enableButtons: true,
 			currentRound: response.round,
 			scores: {
@@ -226,6 +236,7 @@ class GameView extends React.Component {
 					replay={this.replay}
 					opponentType="Friend"
 					scores={this.state.scores}
+					roundEnd={this.state.roundEnd}
 					goBack={() => this.props.history.push("/start")}
 				/>
 				<Modal active={this.state.modal}>

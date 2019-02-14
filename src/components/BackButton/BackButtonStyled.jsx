@@ -4,7 +4,7 @@ import mediaQuery from "helpers/mediaQuery";
 const BackButtonStyled = styled.div`
 	position: absolute;
 	top: 1rem;
-	left: 2rem;
+	left: 2.4rem;
 	cursor: pointer;
 	z-index: 1;
 	display: flex;
@@ -24,11 +24,11 @@ const BackButtonStyled = styled.div`
 	img {
 		width: 6px;
 		transition: transform 0.4s ease;
-		margin-right: 1rem;
+		margin-right: 0.6rem;
 	}
 
 	${mediaQuery.maxMobile`
-		left: 3.5rem;
+		left: 3.8rem;
 	`}
 `;
 

@@ -49,6 +49,7 @@ class PreGameView extends React.Component {
 	};
 
 	handleSliderChange = value => {
+		console.log(value);
 		this.setState({
 			gameMode: value ? "bestofthree" : ""
 		});

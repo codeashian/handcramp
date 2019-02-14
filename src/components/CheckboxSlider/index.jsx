@@ -16,6 +16,8 @@ const CheckboxSlider = props => {
 		const bounds = line.getBoundingClientRect();
 		const value = move ? bounds.width - 25 : -25;
 		handle.style.transform = `translateX(${value}px) translateY(-50%)`;
+
+		props.handleChange(move);
 	};
 
 	const onDown = e => {
@@ -39,7 +41,6 @@ const CheckboxSlider = props => {
 
 	const onUp = () => {
 		setDragging(false);
-		props.handleChange(isOn);
 	};
 
 	const toggleValue = value => {

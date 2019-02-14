@@ -19,9 +19,9 @@ const server = express()
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
 		res.set("Content-Type", "text/html");
-		res.send(INDEX);
+		res.sendFile(INDEX);
 	})
-	.use(Sentry.Handlers.errorHandler())
+	// .use(Sentry.Handlers.errorHandler())
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);

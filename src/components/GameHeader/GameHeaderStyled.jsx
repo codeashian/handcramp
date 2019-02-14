@@ -10,7 +10,7 @@ const expand = keyframes`
 	}
 
 	50% {
-		transform: scale(2);
+		transform: scale(4);
 	}
 
 	100% {
@@ -29,12 +29,12 @@ const GameHeaderStyled = styled.div`
 	height: 100px;
 
 	h5 {
-		margin-top: 15px;
-		font-size: 1.25rem !important;
+		margin-top: 0;
 	}
 
 	.GameHeader-RoundBox {
 		display: flex;
+		margin-top: 7px;
 		flex-direction: column;
 		align-items: center;
 
@@ -45,7 +45,14 @@ const GameHeaderStyled = styled.div`
 			font-weight: bold;
 			color: ${colors.lightPink};
 			display: inline-block;
-			width: 65px;
+			/* width: 65px; */
+			text-transform: uppercase;
+			padding: 3px 4rem;
+			letter-spacing: 3px;
+
+			&.bestofthree {
+				padding: 3px 1rem;
+			}
 		}
 	}
 
@@ -57,6 +64,7 @@ const GameHeaderStyled = styled.div`
 			display: block;
 			font-size: 12px;
 			letter-spacing: 3px;
+			margin-top: 0;
 			/* position: absolute; */
 		}
 
@@ -81,5 +89,12 @@ export const Score = styled.p`
 	position: absolute;
 	margin: 0;
 	${props => props.pos}: 0;
+
+	${props =>
+		props.score &&
+		`
+		animation: ${expand} 0.4s cubic-bezier(0.25, 0.1, 0, 0.75);
+
+	`}
 `;
 export default GameHeaderStyled;

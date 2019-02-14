@@ -69,7 +69,7 @@ const CheckboxSliderStyled = styled.div`
 
 		.Button-Shadow {
 			transform: scaleY(1.04) translateY(9px) translateX(0px);
-			display: none;
+			/* display: none; */
 		}
 	}
 
