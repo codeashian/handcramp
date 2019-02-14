@@ -7,6 +7,7 @@ Sentry.init({
 	dsn: "https://34ba3fad20a24955bc65dc9c2595ed3e@sentry.io/1391576"
 });
 
+console.log(process.env.NODE_ENV);
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, "../dist/index.html");
 
@@ -16,14 +17,21 @@ const roomHandler = require("./roomHandler");
 
 const server = express()
 	.use(Sentry.Handlers.requestHandler())
+	.enable("trust proxy")
+	.use(function(req, res, next) {
+		if (req.secure || process.env.NODE_ENV === "development") {
+			next();
+		} else {
+			res.redirect("https://" + req.headers.host + req.url);
+		}
+	})
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
 		res.set("Content-Type", "text/html");
 		res.sendFile(INDEX);
 	})
-	// .use(Sentry.Handlers.errorHandler())
+	.use(Sentry.Handlers.errorHandler())
 	.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
 const io = socketIO(server);
 
 io.on("connection", function(socket) {
