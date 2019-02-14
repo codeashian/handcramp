@@ -11,7 +11,7 @@ import {
 
 const fadeScale = keyframes`
 	from { opacity: 0; transform: scale(0.8); }
-	to: { opacity: 1; transform: scale(1);}
+	to { opacity: 1; transform: scale(1);}
 `;
 
 const ViewStyled = styled.main`
@@ -46,13 +46,18 @@ const ViewStyled = styled.main`
 		text-align: center;
 		position: absolute;
 		bottom: 0;
+		opacity: 0;
 		width: 100%;
+		will-change: transform, opacity;
 
 		a {
 			font-weight: bold;
 			color: #9d76f1;
 			text-decoration: none;
 		}
+
+		animation: ${slideDown} 0.4s ease forwards 2000ms,
+			${fadeScale} 0.4s ease forwards 2000ms;
 	}
 
 	.start-wrapper {
@@ -60,20 +65,20 @@ const ViewStyled = styled.main`
 		.button,
 		.circle > * {
 			text-align: center;
-			transition: 0.4s ease;
+			will-change: transform, opacity;
+
+			transition: transform 0.4s ease, opacity 0.4s ease;
 		}
 
 		.button {
 			transform: translateY(120px) translateX(-50%);
 			position: absolute;
-			/* width: 100%; */
 			left: 50%;
 
 			> button {
 				opacity: 0;
-				/* position: absolute; */
 				animation: ${slideDown} 0.4s ease forwards 2000ms,
-					${fadeIn} 0.4s ease forwards 2000ms;
+					${fadeScale} 0.4s ease forwards 2000ms;
 			}
 		}
 
@@ -88,10 +93,12 @@ const ViewStyled = styled.main`
 	.start-view {
 		h2 {
 			transition: transform 0.4s ease, opacity 0.4s ease;
+			will-change: transform, opacity;
 		}
 
 		> div {
 			opacity: 0;
+			will-change: transform, opacity;
 		}
 		> div:first-child {
 			animation: ${slideDown} 0.4s ease forwards 0.4s,
@@ -106,6 +113,8 @@ const ViewStyled = styled.main`
 	.pregame-view {
 		.animate {
 			opacity: 0;
+			will-change: transform, opacity;
+
 			animation: ${slideUp} 0.4s ease forwards 0.4s,
 				${fadeIn} 0.4s ease forwards 0.4s;
 		}
@@ -142,6 +151,7 @@ const ViewStyled = styled.main`
 				transform: translateX(-100%);
 				opacity: 0;
 				transition-delay: 200ms;
+				will-change: transform, opacity;
 			}
 		}
 		.icon {
@@ -149,6 +159,7 @@ const ViewStyled = styled.main`
 			/* opacity: 0; */
 			transition-delay: 400ms;
 			transition-duration: 400ms;
+			will-change: transform, opacity;
 
 			&:nth-child(even) {
 				transition-delay: 300ms;

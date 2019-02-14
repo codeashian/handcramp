@@ -24,10 +24,13 @@ const LogoStyled = styled.div`
 	}
 
 	.lab-logo {
-		margin-top: 25px;
 		opacity: 0;
 		animation: ${animations.fadeIn} 0.7s ease-in-out forwards 1900ms;
-
+		height: 100%;
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+		margin-top: 25px;
 		/* ${media.maxMobile`
 			display: none;
 		`} */
