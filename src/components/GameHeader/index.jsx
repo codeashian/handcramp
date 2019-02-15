@@ -6,6 +6,9 @@ import Paragraph from "../Paragraph/index";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const GameHeader = props => {
+	{
+		console.log(props.rounds);
+	}
 	return (
 		<GameHeaderStyled {...props}>
 			<div>

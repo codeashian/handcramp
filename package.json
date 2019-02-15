@@ -5,7 +5,7 @@
 	"author": "",
 	"version": "0.0.5",
 	"engines": {
-		"node": "11.6.0"
+		"node": "10.x.x"
 	},
 	"config": {
 		"figmagicPath": "node_modules/figmagic",

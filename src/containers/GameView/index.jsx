@@ -210,6 +210,7 @@ class GameView extends React.Component {
 
 	handleGameEnd = response => {
 		const players = sortPlayers(response.players, this.state.id);
+		alert(response.round);
 		this.setState({
 			gameEnd: true,
 			winnerId: response.winnerId,

@@ -6,7 +6,7 @@ const gameHandler = (client, io) => {
 			const players = client.getPlayersInRoom(roomId);
 			const winner = players.filter(item => item.score === 2);
 			const roundWinner = checkWinner(players);
-			console.log(roundWinner);
+
 			let response = {
 				players: client.getPlayersInRoom(roomId),
 				winnerId: roundWinner,
@@ -71,6 +71,7 @@ const gameHandler = (client, io) => {
 		if (!players) {
 			client.emitToSelf("onError", "timeout");
 		}
+
 		resetHands(roomId);
 
 		if (socket) {
@@ -113,16 +114,16 @@ const gameHandler = (client, io) => {
 		if (!players && !client.player) {
 			return;
 		}
-
+		console.log("HEJ");
 		if (roundWinner !== "draw") {
-			client.player.round = client.player.round + 1;
+			client.player.round = parseInt(client.player.round) + 1;
 		}
 
 		if (room.gameMode) {
 			handleGameMode(roomId, room.gameMode, userId);
 			return;
 		}
-
+		console.log(client.player);
 		client.emitToSelf("onGameEnd", {
 			players: client.getPlayersInRoom(roomId),
 			round: client.player.round,
