@@ -125,12 +125,13 @@ class PreGameView extends React.Component {
 											noHover={true}
 										>
 											<input
-												contenteditable="true"
-												readonly="false"
+												contentEditable="true"
 												ref={ref => (this.input = ref)}
 												type="text"
 												onChange={() => null}
-												value={`${window.location.origin}/${this.state.roomId}`}
+												value={`${window.location.origin}/${
+													this.state.roomId
+												}${this.state.gameMode && "?m=1"}`}
 											/>
 										</Button>
 										<Button

@@ -71,7 +71,11 @@ class GameView extends React.Component {
 	componentDidMount() {
 		const { client } = this.state;
 		const roomId = this.props.match.params.room;
-		const gameMode = this.props.location.gameMode;
+		let gameMode = this.props.location.gameMode;
+
+		if (this.props.location.search === "?m=1") {
+			gameMode = "bestofthree";
+		}
 
 		this.setState({
 			roomId,
