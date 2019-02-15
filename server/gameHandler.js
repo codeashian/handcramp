@@ -114,16 +114,14 @@ const gameHandler = (client, io) => {
 		if (!players && !client.player) {
 			return;
 		}
-		console.log("HEJ");
 		if (roundWinner !== "draw") {
 			client.player.round = parseInt(client.player.round) + 1;
 		}
 
-		if (room.gameMode) {
+		if (room && room.hasOwnProperty("gameMode")) {
 			handleGameMode(roomId, room.gameMode, userId);
 			return;
 		}
-		console.log(client.player);
 		client.emitToSelf("onGameEnd", {
 			players: client.getPlayersInRoom(roomId),
 			round: client.player.round,
@@ -135,7 +133,7 @@ const gameHandler = (client, io) => {
 	const replay = roomId => {
 		const room = client.getRoom(roomId);
 
-		if (room.gameMode) {
+		if (room && room.hasOwnProperty("gameMode")) {
 			client.player.round = 1;
 			resetScore(roomId);
 		}

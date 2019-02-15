@@ -161,6 +161,7 @@ class GameView extends React.Component {
 		});
 
 		const circle = document.querySelector(".PlayField-Circle");
+
 		setTimeout(() => {
 			circle.classList.add("animate");
 		}, 1400);
@@ -209,8 +210,8 @@ class GameView extends React.Component {
 	};
 
 	handleGameEnd = response => {
+		console.warn(response.round);
 		const players = sortPlayers(response.players, this.state.id);
-		alert(response.round);
 		this.setState({
 			gameEnd: true,
 			winnerId: response.winnerId,
