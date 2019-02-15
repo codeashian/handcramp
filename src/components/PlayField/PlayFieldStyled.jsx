@@ -113,7 +113,7 @@ const PlayFieldStyled = styled.div`
 			width: 27rem;
 
 			${mediaQuery.midMobile`
-				width: 39rem;
+				width: 31rem;
 			`}
 		}
 
