@@ -16,13 +16,13 @@ const roomHandler = require("./roomHandler");
 
 const server = express()
 	.use(Sentry.Handlers.requestHandler())
-	.use(function(req, res, next) {
-		if (req.secure || process.env.NODE_ENV === "development") {
-			next();
-		} else {
-			res.redirect("https://" + req.headers.host + req.url);
-		}
-	})
+	// .use(function(req, res, next) {
+	// 	if (req.secure || process.env.NODE_ENV === "development") {
+	// 		next();
+	// 	} else {
+	// 		res.redirect("https://" + req.headers.host + req.url);
+	// 	}
+	// })
 	.use(express.static("dist"))
 	.all("*", (req, res) => {
 		res.set("Content-Type", "text/html");
