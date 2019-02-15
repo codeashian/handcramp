@@ -149,9 +149,9 @@ class GameView extends React.Component {
 
 	onAnimationEnd = () => {
 		this.state.client.roundEnd(this.state.roomId, this.state.id);
-		this.setState({
-			roundEnd: true
-		});
+		// this.setState({
+		// 	roundEnd: true
+		// });
 	};
 
 	onPlay = players => {
@@ -202,6 +202,7 @@ class GameView extends React.Component {
 			currentRound: response.round,
 			enableButtons: true,
 			selectedHand: "",
+			roundEnd: true,
 			scores: {
 				user: players.user.score,
 				opponent: players.opponent.score
