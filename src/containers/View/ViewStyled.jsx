@@ -100,11 +100,13 @@ const ViewStyled = styled.main`
 			opacity: 0;
 			will-change: transform, opacity;
 		}
+
+		> div:nth-child(2),
 		> div:first-child {
 			animation: ${slideDown} 0.4s ease forwards 0.4s,
 				${fadeIn} 0.4s ease forwards 0.4s;
 		}
-		> div:last-child {
+		> div:nth-child(3) {
 			animation: ${slideUp} 0.4s ease forwards 0.8s,
 				${fadeIn} 0.4s ease forwards 0.8s;
 		}

@@ -9,11 +9,11 @@ import checkWinner from "../../../server/functions/checkWinner";
 
 const initialPlayers = {
 	user: {
-		hand: "rock",
+		hand: "",
 		score: 0
 	},
 	opponent: {
-		hand: "scissors",
+		hand: "",
 		score: 0
 	}
 };
