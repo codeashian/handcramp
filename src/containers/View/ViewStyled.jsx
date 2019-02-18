@@ -54,6 +54,10 @@ const ViewStyled = styled.main`
 			font-weight: bold;
 			color: #9d76f1;
 			text-decoration: none;
+
+			&:hover {
+				color: ${colors.purpleDark};
+			}
 		}
 
 		animation: ${slideDown} 0.4s ease forwards 2000ms,
