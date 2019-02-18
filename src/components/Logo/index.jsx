@@ -10,7 +10,9 @@ const Logo = props => (
 				src="./assets/icons/mobile-top-hands.svg"
 			/>
 			<img className="logo-img" src="./assets/icons/Logo-Outlines.svg" />
-			<img className="lab-logo" src="./assets/icons/hb-lab-logo.svg" />
+			<a target="_blank" href="https://humblebee.se">
+				<img className="lab-logo" src="./assets/icons/hb-lab-logo.svg" />
+			</a>
 			<img
 				className="mobile-icon mobile-icon--bottom"
 				src="./assets/icons/mobile-bottom-hands.svg"
