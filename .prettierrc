@@ -1,3 +1,7 @@
 {
-  "extends": "./node_modules/@humblebee/humblebee-frontend/configs/.prettierrc"
+	"useTabs": true,
+	"printWidth": 100,
+	"tabWidth": 2,
+	"singleQuote": true,
+	"trailingComma": "none"
 }

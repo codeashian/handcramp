@@ -6928,7 +6928,7 @@ favico.js-slevomat@^0.3.11:
   resolved "https://registry.yarnpkg.com/favico.js-slevomat/-/favico.js-slevomat-0.3.11.tgz#36a67ba695f8a0e4cf5cc0ca7ef02ce82b571ef4"
   integrity sha512-fP1e3RqjT+zNo0yU0LBaSbJrQ7DWUbt+yVigkZ2VXRjNpAm6ZEsoM9FnN5Gdf/9r8/SlS84X7OhBESD6f7EihQ==
 
-"favico.js@github:ejci/favico.js#6a3f430":
+favico.js@ejci/favico.js#6a3f430:
   version "0.3.10"
   resolved "https://codeload.github.com/ejci/favico.js/tar.gz/6a3f430be559f93d96573e2a4a0116e154c11319"
 

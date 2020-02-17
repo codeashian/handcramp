@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import View from "containers/View";
-import Button from "components/Button";
-import BackgroundPattern from "components/BackgroundPattern";
-import Container from "components/Container";
-import Logo from "components/Logo";
-import Row from "components/Row";
-import Col from "components/Col";
+import View from 'containers/View';
+import Button from 'components/Button';
+import BackgroundPattern from 'components/BackgroundPattern';
+import Container from 'components/Container';
+import Logo from 'components/Logo';
+import Row from 'components/Row';
+import Col from 'components/Col';
 
 class SomeView extends React.Component {
 	state = {
@@ -24,7 +24,7 @@ class SomeView extends React.Component {
 	}
 
 	handleButtonClick = () => {
-		this.props.history.push("/start");
+		this.props.history.push('/start');
 	};
 
 	render() {
@@ -54,19 +54,13 @@ class SomeView extends React.Component {
 					</Row>
 				</Container>
 				<div className="footer">
-					Made by{" "}
-					<a
-						target="_blank"
-						href="https://www.linkedin.com/in/elina-åberg-776a2a87"
-					>
+					Made by{' '}
+					<a target="_blank" href="https://elina.io">
 						Elina
-					</a>{" "}
+					</a>{' '}
 					&
-					<a
-						target="_blank"
-						href="https://www.linkedin.com/in/artdirectorandersolofsson/"
-					>
-						{" "}
+					<a target="_blank" href="https://www.olofssonanders.com/">
+						{' '}
 						Anders
 					</a>
 				</div>

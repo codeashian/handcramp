@@ -1,3 +1,14 @@
 {
-	"extends": "./node_modules/@humblebee/humblebee-frontend/configs/.stylelintrc"
+	"processors": ["stylelint-processor-styled-components"],
+	"plugins": [
+		"stylelint-no-unsupported-browser-features"
+	],
+	"extends": [
+		"stylelint-config-styled-components",
+		"stylelint-config-suitcss",
+		"stylelint-config-prettier"
+	],
+	"rules": {
+		"plugin/no-unsupported-browser-features": [true, {}]
+	}
 }
